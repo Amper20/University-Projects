@@ -1,0 +1,20 @@
+P1 - extragem maximul din toate elemente arrayul si updatam scorul jucatorului curent cu valoarea extrasa ( + sau - v[i])
+
+P2 - 
+        vom defini dp[i][j] - diferenta maxima intre jucatori dupa ce vom lua in considerare j elemente din setul primelor i elemente  
+        dp[i][j] = max(
+                dp[i-1][j-1] + ((j % 2 == 1) ? v[i] : -v[i]) 
+                dp[i-1][j]
+        )
+        raspunsul se va afla in dp[n][n-k]
+
+P3 -    
+        vom incerca sa maximizam scorul primului jucator, in acelasi timp minimizand scorul jucatorului 2;
+        putem reduce problema la maximizarea valorii curente urmarind scorul obtinut in urmatorul pas, dupa update repetam acelasi procedeu 
+        pentru problema mai mare.
+        vom defini dp[i][j] - numarul maxim de puncte colectat de un jucator dintre pozitia i si j
+                dp[left][right] = max(
+                                v[left]  + min((left + 2 <= right ? dp[left+2][right]   : 0), (left + 2 <= right ? dp[left+1][right-1] : 0)), 
+                                v[right] + min((left + 2 <= right ? dp[left+1][right-1] : 0), (left + 2 <= right ? dp[left][right-2]   : 0))
+                );
+        diferenta va fi maxima deoarece am incercat sa maximizam scorul jucatorului 1 si sa minimizam scorul jucatorului 2, o vom calcula ca fiind 2*dp[0][n-1] - suma totala.

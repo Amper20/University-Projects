@@ -1,0 +1,30 @@
+Realizat de : Butmalai Dan 323CC
+Timp de realizare : mult mai mult decat m-am asteptat
+
+Descriere fisiere:
+        utils.c + utils.h: 
+                sunt folosite pentru a reutiliza structurile custum payload funtiile getSum 
+                si alte functii ajutatoare folosite in cadrul temei
+        send.c:
+                realizeaza citirea si separarea fisierului in packete
+                trimite packetele folosind metodologia din descrierea ce va urma
+        recv.cpp:
+                realizeaza primirea packetelor si trimiterea ack, scrierea packetelor folosind
+                metodologia din descrierea ce va urma 
+                
+
+Descriere metodologie rezolvarii:
+        trimiterea:
+                Fiecare packet are asignat doua campuri aditionale when si key.
+                Un packet pentru care a fost primit un ack va avea key setat pe 1
+                deci asa vom sti daca sa retrimitem sau nu packetul dat. 
+                Campul when e folosit pentru a verifica daca packetul se afla
+                inca in window, programul contine un timer (e folosit
+                pentru a vedea la ce pas in trimitere suntem, o unitate din timer va fi practic
+                viteza la care se trimite un packet). Daca campul when + windowSize e mai mic ca timer
+                putem considera ca packetul inca nu a ajuns la destinatie deci nu are sens sa il retrimitem.
+        receptionarea:
+                Vom receptiona packetele folosind un recv_mes cu timeout.
+                Vom inchide procesul cand vom primi un packet ce contine -2 in campul cust_pay.len si nu vom mai avea packete nescrise
+                Packete primite out of order sunt pastrate intr-un map (care le pastreaza crescator by default conform campului first).
+                Dupa scrierea unui packet vom elibera memoria.

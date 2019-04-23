@@ -1,0 +1,11 @@
+Realizat de Dan Butmalai 323CC
+Timp de realizare ~ 24H impartite in 6-7 zile
+    din care ~8-9 pentru realizarea Interfetei grafice
+Tema a fost rezolvata complet, exceptie bonus GUI.
+Fiecare Clasa implementeaza cerintele descrise in conditia temei.
+Clasele contin o descriere succinta a functionalitatii implementate.
+GUI-ul a fost realizat folosind Clasa Fragment care a fost extinsa de "Clasele Viewer" ex. Loader, CartView, etc.
+UImain este clasa de baza ce detine toate fragmenturile, functia changeFragment e folosita pentru a schimba
+afisajul viewportului catre alt fragment(JPanel).
+Ca functionalitate aditionala a GUI-ului am implementat in fiecare button un
+sistem de feedback ce coloreaza fiecare buton in cazul unei actiuni reusite sau esuate.
