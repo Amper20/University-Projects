@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 	ret = bind(sockfd, (struct sockaddr *) &serv_addr, sizeof(struct sockaddr));
 	DIE(ret < 0, "bind");
 
-	ret = listen(sockfd, MAX_CLIENTS);
+	ret = listen(sockfd, MAX_CLIENTS);	
 	DIE(ret < 0, "listen");
 
 	// se adauga noul file descriptor (socketul pe care se asculta conexiuni) in multimea read_fds
@@ -94,6 +94,10 @@ int main(int argc, char *argv[])
 						FD_CLR(i, &read_fds);
 					} else {
 						printf ("S-a primit de la clientul de pe socketul %d mesajul: %s\n", i, buffer);
+						for( int j = 0 ; j <= fdmax; j++)
+							if(j != i && j != sockfd && FD_ISSET(j, &read_fds) ){
+								send(j, buffer, strlen(buffer), 0);							
+							}
 					}
 				}
 			}

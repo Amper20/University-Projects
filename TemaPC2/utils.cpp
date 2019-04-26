@@ -8,7 +8,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-void errorOccured(char *message){
-	fprintf(stderr, "exited with error message: -->%s<-- \n", message);
+void errorOccured(char *message, int lineNum){
+	fprintf(stderr, "exited with error message: -->%s %d<-- \n", message, lineNum);
 	exit(0);
 }

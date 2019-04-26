@@ -11,7 +11,7 @@
 #define BUFFER_LEN 1500
 #define MAX_CLINETS_NUM 100
 
-void errorOccured(char *message);
+void errorOccured(char *message, int lineNum);
 
 
 #endif

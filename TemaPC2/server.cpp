@@ -43,9 +43,38 @@ public:
 	}
 
 	void updateConnections(){
+		tmpFds = readFds; 
+		if (select(setSize + 1, &tmpFds, NULL, NULL, NULL) < 0)
+				errorOccured("updateConnSelect", __LINE__);
+		if (FD_ISSET(listenSocket, &tmpFds)){
+			struct sockaddr_in newClientAddr;
+			socklen_t newClientSize = sizeof(newClientAddr);
+			int newClientSocket = accept(listenSocket, (struct sockaddr *) &newClientAddr, &newClientSize);
+			if (newClientSocket < 0)
+				errorOccured("updateSocketSelect", __LINE__);
+			FD_SET(newClientSocket, &readFds);
+			setSize = max(setSize, newClientSocket); 
+			//NEW CONNECTION MESSAGE
+			printf("Conn %d new\n", newClientSocket);
+		}
+	}
+	
+	void closeConnection(int delClientSocket){
+		printf("Conn %d closed\n", delClientSocket);
+		close(delClientSocket);
+		FD_CLR(delClientSocket, &readFds);
+	}
+
+	void updateMessages(){
+		tmpFds = readFds; 
 		for(int i = 0; i <= setSize; i++){
-			tmpFds = readFds; 
-			ret = select(setSize + 1, &tmpFds, NULL, NULL, NULL);
+			if(FD_ISSET(i, &tmpFds)){
+				memset(buff, 0, BUFFER_LEN);
+				int recvSize = recv(i, buff, sizeof(buff), 0);
+				if (recvSize < 0) errorOccured("messageRecv", __LINE__);
+				if (recvSize == 0) {closeConnection(i); continue;}
+				printf ("Clinet %d sent  %s\n", i, buff);
+			}
 		}
 	}
 
@@ -57,6 +86,7 @@ int main(int argc, char *argv[]){
 	server.init(argv[1]);
 	while(1){
 		server.updateConnections();
+		server.updateMessages();
 	}
 
     return 0;
