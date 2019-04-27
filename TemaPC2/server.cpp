@@ -21,7 +21,7 @@ public:
 	fd_set readFds; // general set
 	fd_set tmpFds; //temporary set
 	struct sockaddr_in servAddr; //server adress
-	int setSize, listenSocket, portno, ret; //max set value
+	int setSize, listenSocket, portno, ret, udpDataSocket; //max set value
     char buff[BUFFER_LEN];
 
 	void init( char * argv1 ){
@@ -54,6 +54,7 @@ public:
 				errorOccured("updateSocketSelect", __LINE__);
 			FD_SET(newClientSocket, &readFds);
 			setSize = max(setSize, newClientSocket); 
+			printf ("Clinet %d sent  %s\n", newClientSocket, buff);
 			//NEW CONNECTION MESSAGE
 			printf("Conn %d new\n", newClientSocket);
 		}
@@ -68,7 +69,7 @@ public:
 	void updateMessages(){
 		tmpFds = readFds; 
 		for(int i = 0; i <= setSize; i++){
-			if(FD_ISSET(i, &tmpFds)){
+			if(FD_ISSET(i, &tmpFds) && i != listenSocket){
 				memset(buff, 0, BUFFER_LEN);
 				int recvSize = recv(i, buff, sizeof(buff), 0);
 				if (recvSize < 0) errorOccured("messageRecv", __LINE__);

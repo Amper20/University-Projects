@@ -7,11 +7,12 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <string>
+ 
 #define BUFFER_LEN 1500
 #define MAX_CLINETS_NUM 100
 
-void errorOccured(char *message, int lineNum);
+void errorOccured(std::string message, int lineNum);
 
 
 #endif

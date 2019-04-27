@@ -7,8 +7,9 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <iostream>
 
-void errorOccured(char *message, int lineNum){
-	fprintf(stderr, "exited with error message: -->%s %d<-- \n", message, lineNum);
+void errorOccured(std::string message, int lineNum){
+	std::cout << "exited with error message: --> "<< message << " " << lineNum << " <-- \n";
 	exit(0);
 }

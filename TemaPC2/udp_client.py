@@ -114,7 +114,7 @@ def main():
     sock = setup_socket(parsed_args)
 
     print('Client source PORT: {}'.format(sock.getsockname()[1]))
-
+    
     if parsed_args.mode == 'all_once':
         print('Running in all_once mode...\n')
         run_all_once(sock, parsed_args)
