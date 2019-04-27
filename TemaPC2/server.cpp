@@ -28,6 +28,8 @@ public:
 		FD_ZERO(&readFds);
 		FD_ZERO(&tmpFds);
 		listenSocket = socket(AF_INET, SOCK_STREAM, 0);
+		udpDataSocket = socket(AF_INET, SOCK_DGRAM, 0);
+
 		portno = atoi(argv1);
 
 		memset((char *) &servAddr, 0, sizeof(servAddr));
@@ -36,10 +38,14 @@ public:
 		servAddr.sin_family = AF_INET;
 		
 		bind(listenSocket, (struct sockaddr *) &servAddr, sizeof(struct sockaddr));
+		bind(udpDataSocket, (struct sockaddr *) &servAddr, sizeof(struct sockaddr));
+
 		listen(listenSocket, MAX_CLINETS_NUM);
 
+		FD_SET(udpDataSocket, &readFds);
 		FD_SET(listenSocket, &readFds);
-		setSize = listenSocket;
+
+		setSize = max(listenSocket, udpDataSocket);
 	}
 
 	void updateConnections(){
@@ -47,6 +53,7 @@ public:
 		if (select(setSize + 1, &tmpFds, NULL, NULL, NULL) < 0)
 				errorOccured("updateConnSelect", __LINE__);
 		if (FD_ISSET(listenSocket, &tmpFds)){
+			cout << "listenSocket";
 			struct sockaddr_in newClientAddr;
 			socklen_t newClientSize = sizeof(newClientAddr);
 			int newClientSocket = accept(listenSocket, (struct sockaddr *) &newClientAddr, &newClientSize);
@@ -57,6 +64,12 @@ public:
 			printf ("Clinet %d sent  %s\n", newClientSocket, buff);
 			//NEW CONNECTION MESSAGE
 			printf("Conn %d new\n", newClientSocket);
+		}
+		while (FD_ISSET(udpDataSocket, &tmpFds)){
+			int rec = recvfrom(udpDataSocket, buff, sizeof(buff), 0, NULL, NULL);
+			cout << rec << " "<< buff << "\n";
+			tmpFds = readFds; 
+			select(setSize + 1, &tmpFds, NULL, NULL, NULL);
 		}
 	}
 	
@@ -69,7 +82,7 @@ public:
 	void updateMessages(){
 		tmpFds = readFds; 
 		for(int i = 0; i <= setSize; i++){
-			if(FD_ISSET(i, &tmpFds) && i != listenSocket){
+			if(FD_ISSET(i, &tmpFds) && i != listenSocket && i != udpDataSocket){
 				memset(buff, 0, BUFFER_LEN);
 				int recvSize = recv(i, buff, sizeof(buff), 0);
 				if (recvSize < 0) errorOccured("messageRecv", __LINE__);
