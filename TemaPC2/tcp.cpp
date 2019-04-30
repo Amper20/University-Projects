@@ -25,23 +25,29 @@ public:
 
 
 	void init(char *argv[]){
+		
 		clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 		if(clientSocket < 0) errorOccured("clientSocket", __LINE__);
 
 		servAddr.sin_family = AF_INET;
-		servAddr.sin_port = htons(atoi(argv[2]));
-		if(inet_aton(argv[1], &servAddr.sin_addr) < 0 ) errorOccured ("inetAton", __LINE__);
+		servAddr.sin_port = htons(atoi(argv[3]));
+		if(inet_aton(argv[2], &servAddr.sin_addr) < 0 ) errorOccured ("inetAton", __LINE__);
 		if(connect(clientSocket, (struct sockaddr*) &servAddr, sizeof(servAddr)) < 0 ) errorOccured ("connect", __LINE__);
 
+		sprintf(buff, "New Client \"%s\"",  argv[1]);
+		if(send(clientSocket, buff, strlen(buff), 0) < 0) errorOccured("sendError", __LINE__);
+		
 		FD_ZERO(&readFds);
 		FD_ZERO(&tmpFds);
+		
 		FD_SET(clientSocket, &readFds);
-		setSize = clientSocket;
 		FD_SET(STDIN_FILENO, &readFds);
+		
+		setSize = clientSocket;
 		setSize = max(clientSocket, STDIN_FILENO);	
 	}
 
-	void updateInput(){
+	int updateInput(){
 		tmpFds = readFds;
 		if(select(setSize + 1, &tmpFds, NULL, NULL, NULL) < 0) errorOccured("selectError", __LINE__);
 		if(FD_ISSET(STDIN_FILENO, &tmpFds)){
@@ -49,16 +55,15 @@ public:
 			fgets(buff, BUFFER_LEN - 1, stdin);
 
 			if (strncmp(buff, "exit", 4) == 0) {
-				//close client
-				;
+				return 0;
 			}
 
 			// se trimite mesaj la server
-			cout << buff << " --";
 			if(send(clientSocket, buff, strlen(buff), 0) < 0)
 				errorOccured("sendError", __LINE__);
 			
 		}
+		return 1;
 	}
 };
 
@@ -69,6 +74,7 @@ int main(int argc, char *argv[]){
 	Client client;
 	client.init(argv);
 	while(1){
-		client.updateInput();
+		if (!client.updateInput())
+			break;
 	}
 }
