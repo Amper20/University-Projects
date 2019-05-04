@@ -10,7 +10,7 @@
 #include <string>
 
 // am pus mai mult, las sa fie
-#define BUFFER_LEN 1600 
+#define BUFFER_LEN 1700
 #define MAX_CLINETS_NUM 100
 
 void errorOccured(std::string message, int lineNum);

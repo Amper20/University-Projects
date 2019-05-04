@@ -15,15 +15,17 @@ extern "C" {
 
 using namespace std;
 
+//client class keeps relevant data for client
 class Client{
 public:	
+
 	int clientSocket, messageSize, setSize;
 	struct sockaddr_in servAddr;
 	char buff[BUFFER_LEN];
 	fd_set readFds; // general set
 	fd_set tmpFds; //temporary set
 
-
+	//inits client
 	void init(char *argv[]){
 		
 		clientSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -47,21 +49,45 @@ public:
 		setSize = max(clientSocket, STDIN_FILENO);	
 	}
 
+	//reads from stdin
 	int updateInput(){
+		
 		tmpFds = readFds;
 		if(select(setSize + 1, &tmpFds, NULL, NULL, NULL) < 0) errorOccured("selectError", __LINE__);
+		
 		if(FD_ISSET(STDIN_FILENO, &tmpFds)){
 			memset(buff, 0, BUFFER_LEN);
 			fgets(buff, BUFFER_LEN - 1, stdin);
 
 			if (strncmp(buff, "exit", 4) == 0) {
+				if(send(clientSocket, buff, sizeof(buff), 0) < 0)
+					errorOccured("sendError", __LINE__);
+				close(clientSocket);
 				return 0;
 			}
 
 			// se trimite mesaj la server
-			if(send(clientSocket, buff, strlen(buff), 0) < 0)
-				errorOccured("sendError", __LINE__);
+			if(send(clientSocket, buff, sizeof(buff), 0) < 0) errorOccured("sendError", __LINE__);
+		}
+		return 1;
+	}
+
+	//receives messages if exit kill curent instance of program
+	int receiveData(){
+		
+		tmpFds = readFds;
+		if(select(setSize + 1, &tmpFds, NULL, NULL, NULL) < 0) errorOccured("selectError", __LINE__);
+
+		if(FD_ISSET(clientSocket, &tmpFds)){
 			
+			memset(buff, 0, BUFFER_LEN);
+			int recvSz = recv(clientSocket, buff, sizeof(buff), 0);
+			
+			if (strncmp(buff, "exit\n", 4) == 0 || !recvSz) {
+				close(clientSocket);
+				return 0;
+			}
+			printf("%s\n", buff);
 		}
 		return 1;
 	}
@@ -73,8 +99,10 @@ int main(int argc, char *argv[]){
 
 	Client client;
 	client.init(argv);
+
 	while(1){
-		if (!client.updateInput())
+		if (!client.updateInput() || !client.receiveData())
 			break;
 	}
+	return 0;
 }
