@@ -1,3 +1,6 @@
+#ifndef REQUEST_HPP
+#define REQUEST_HPP
+
 extern "C" {
         #include <stdlib.h>
         #include <stdio.h>
@@ -9,7 +12,6 @@ extern "C" {
         #include <arpa/inet.h>
 }
 
-#include "utils.hpp"
 #include "request.hpp"
 
 using namespace std;
@@ -17,3 +19,5 @@ using namespace std;
 string GET(string host, string url, string params);
 
 string POST(string host, string url, string data);
+
+#endif

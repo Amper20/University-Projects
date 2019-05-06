@@ -63,7 +63,7 @@ public:
 	fd_set tmpFds; //temporary set
 	struct sockaddr_in servAddr; //server adress
 	int setSize, listenSocket, portno, ret, udpDataSocket, dichi = 1; //max set value
-    char buff[BUFFER_LEN];
+    	char buff[BUFFER_LEN];
 	map<int, Client*> clients; //map that contains clients 
 	map <int, struct sockaddr_in> clientAddr; // map that contains socket->addres data
 

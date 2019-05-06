@@ -14,8 +14,8 @@ using namespace std;
 
 //throws an exceptions kills the program
 void errorOccured(string message, int lineNum){
-	cout << "exited with error message: --> "<< message << " " << lineNum << " <-- \n";
-	exit(0);
+cout << "exited with error message: --> "<< message << " " << lineNum << " <-- \n";
+exit(0);
 }
 
 //gets Port from adress

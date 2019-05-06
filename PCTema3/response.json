@@ -1,0 +1,10 @@
+// HTTP/1.1 200 OK
+// Content-Type: application/json; charset=utf-8
+// Set-Cookie: prajiturica=eyJ1c2VybmFtZSI6Im9rVHh0QWp6IiwicGFzc3dvcmQiOiJXT0ZUUnJLNCIsIl9leHBpcmUiOjE1NTY5NzQ4NTkyMzIsIl9tYXhBZ2UiOjM2MDAwMDB9; path=/; expires=Sat, 04 May 2019 13:00:59 GMT; httponly
+// Set-Cookie: prajiturica.sig=Kdbgf17B0nwBJYBWUZpBXe8lINY; path=/; expires=Sat, 04 May 2019 13:00:59 GMT; httponly
+// X-Response-Time: 2ms
+// Content-Length: 487
+// Date: Sat, 04 May 2019 12:00:59 GMT
+// Connection: keep-alive
+//
+{"enunt":"Felicitari! Pentru ca ai facut primul task corect, ai o prajiturica! Iti recomand sa nu o mananci pe drum :) \n  In continuare va trebui sa te loghezi utilizand credentialele oferite in campul data. Te rog sa respecti url-ul, metoda si tipul. \n  Campurile trebuie puse sub forma username=xxx&password=yyy. Ele trebuie extrase, nu hardcodate!","url":"/task2/login","method":"POST","type":"application/x-www-form-urlencoded","data":{"username":"okTxtAjz","password":"WOFTRrK4"}}

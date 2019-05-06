@@ -8,7 +8,7 @@
 Contine clasa ce rezolva functionalitatea unui server descris de cerinta din tema.
 
 Descriere scurta:
-        Serverul conine un map ce pastreaza datele relevante pentru cleinti.
+        In server am adaugat un map ce pastreaza datele relevante pentru clienti.
         In momentul in care este primit un mesaj de la un clinet tcp sau udp
         datele continute in obiectul server sunt updatate corespunzator.
         Dupa updatarea dateleor se verifica daca serverul contine mesaje ce trebuiesc
