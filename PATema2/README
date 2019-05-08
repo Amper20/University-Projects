@@ -1,0 +1,36 @@
+~Tema2 PA~
+Realizat de: Butmalai Dan
+Timp de realizare: 4-5h.
+
+-----------p1.cpp-----------
+Vom pastra pentru fiecare distanta Xi distincta o lista cu noduri
+care ar trebui sa fie la distaxa Xi de la nodul 0;
+Vom parcurge vectorul obtinut si vom genera graful creand
+o muchie intre toate nodurile din lista curenta cu 
+primul nod din lista precedenta.
+In caz ca lista precedenta nu constine noduri
+nu va exista un graf care sa satisfaca vectorul de costuri din input
+=> vom afisa -1;
+Complexitate: N
+
+-----------p2.cpp-----------
+Vom folosi un tractor belarus: MTZ 550.
+Din fiecare pozitie a matricii vom apela un dfs
+care va calcula aria cu proprietatile date in enunt.
+Dupa fiecare parcurgere vom actualiza raspunsul final.
+Complexitate: N^4
+
+-----------p3.cpp-----------
+Vom calcula distanta de la nodul final n spre nodul de start 1.
+Am folosit algoritmul lui Dijkstra, in heap pe langa cost si parinte
+am pastrat si tipul muchiei precedente pentru a calcula costul
+cu penalitati.
+Complexitate: NlogN + M
+
+-----------p4.cpp-----------
+Vom genera toate submultimile de muchii 
+conform tipului lor. Pentru fiecare submultime din muchiile
+obtinute vom crea un graf. Pentru fiecare
+graf generat vom calcula distanta 1 -> n
+folosind alg lui Dijkstra.
+Complexitate: T^2*(NlogN+M)
