@@ -14,8 +14,11 @@ extern "C" {
 #include "request.hpp"
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
+
+#define LINE_SIZE 5000
 
 class Client{
 public:
@@ -23,85 +26,114 @@ public:
 	
 	int socket;
 	
-	void print_commits_info(const char *username, const char *repo) {
-		JSON_Value *root_value;
-		JSON_Array *commits;
-		JSON_Object *commit;
-		size_t i;
-		
-		char curl_command[512];
-		char cleanup_command[256];
-		char output_filename[] = "commits.json";
-		
-		/* it ain't pretty, but it's not a libcurl tutorial */
-		sprintf(curl_command, 
-			"curl -s \"https://api.github.com/repos/%s/%s/commits\" > %s",
-			username, repo, output_filename);
-		sprintf(cleanup_command, "rm -f %s", output_filename);
-		system(curl_command);
-		
-		/* parsing json and validating output */
-		root_value = json_parse_file(output_filename);
-		if (json_value_get_type(root_value) != JSONArray) {
-			system(cleanup_command);
-			return;
-		}
-		
-		/* getting array from root value and printing commit info */
-		commits = json_value_get_array(root_value);
-		printf("%-10.10s %-10.10s %s\n", "Date", "SHA", "Author");
-		for (i = 0; i < json_array_get_count(commits); i++) {
-			commit = json_array_get_object(commits, i);
-			printf("%.10s %.10s %s\n",
-				json_object_dotget_string(commit, "commit.author.date"),
-				json_object_get_string(commit, "sha"),
-				json_object_dotget_string(commit, "commit.author.name"));
-		}
-		
-		/* cleanup code */
-		json_value_free(root_value);
+	//task1 response strings
+	string dataTask1, type, url, method, body, urlParams, token;
+	vector<string> coockies;
 
+	Client(){};
+
+	vector<string> getCoockies(string response){
+		vector<string> ret;
+		while(response.find("Set-Cookie: ") != string::npos){
+			int start = response.find("Set-Cookie");
+			string rest = response.substr(start + 12, response.length());
+			int end = rest.find("httponly");
+			ret.push_back(rest.substr(0, end + 8));
+			response = rest;
+		}
+		return ret;
 	}
-	
-	Client(){
-		socket = open_connection("185.118.200.35", 8081, AF_INET, SOCK_STREAM, 0);
-	};
 
 	void solveTask1(){
-		
-		string taskRequest = GET("185.118.200.35", "/task1/start", "");
+		socket = open_connection("185.118.200.35", 8081, AF_INET, SOCK_STREAM, 0);
+		string taskRequest = GET("185.118.200.35", "/task1/start", "", "", coockies);
 		send_to_server(socket, taskRequest.c_str());
 		
 		string response  = receive_from_server(socket);
-		char buffer[2000];
-		memcpy(buffer, (response.substr(response.find("\r\n\r\n")+4,response.length())).c_str(), response.length() - response.find("\r\n\r\n")-4); 
-		printf("->%s<-", buffer);
+		cout << "________________TASK1________________\n";
+		cout << response << "\n\n";
+		char jsonChar[LINE_SIZE];
+		memcpy(jsonChar, (response.substr(response.find("\r\n\r\n")+4,response.length())).c_str(), response.length() - response.find("\r\n\r\n") - 4); 
 
-		JSON_Value  *parser = json_parse_string(buffer);
-
-		JSON_Object *obj = json_object(parser);
-		printf("%s", json_object_dotget_string(obj, "data"));
-		//string data = json_value_get_string(parser);
-		//cout << data;
-		// commits = json_value_get_array(parser);
+		JSON_Value  *parser = json_parse_string(jsonChar);
 		
-		// for (i = 0; i < json_array_get_count(commits); i++) {
-			
-		// 	cout << "entry\n";
-
-		// 	commit = json_array_get_object(commits, i);
-			
-		// 	printf("%.10s %.10s %s\n",
-		// 		json_object_dotget_string(commit, "commit.author.date"),
-		// 		json_object_get_string(commit, "sha"),
-		// 		json_object_dotget_string(commit, "commit.author.name"));
-		// }
+		string userName = json_object_dotget_string(json_value_get_object(parser), "data.username");
+		string userPassword = json_object_dotget_string(json_value_get_object(parser), "data.password");
+		body = "username=" + userName + "&password=" + userPassword;
 		
-		//print_commits_info("torvalds", "linux");
+		type = json_object_get_string(json_value_get_object(parser), "type");
+		url = json_object_get_string(json_value_get_object(parser), "url");
+		method = json_object_get_string(json_value_get_object(parser), "method");
+		coockies =  getCoockies(response);
+	}
+
+	void solveTask2(){
+		if(method == "POST"){
+			socket = open_connection("185.118.200.35", 8081, AF_INET, SOCK_STREAM, 0);
+			string taskRequest = POST("185.118.200.35", url, body, type, method, coockies);
+			send_to_server(socket, taskRequest.c_str());
+			string response  = receive_from_server(socket);
+
+			cout << "________________TASK2________________\n";
+			cout << response << "\n\n";
+
+			
+
+			char jsonChar[LINE_SIZE];
+			memcpy(jsonChar, (response.substr(response.find("\r\n\r\n")+4,response.length())).c_str(), response.length() - response.find("\r\n\r\n") - 4); 
+			
+			JSON_Value  *parser = json_parse_string(jsonChar);
+			
+			string id = json_object_dotget_string(json_value_get_object(parser), "data.queryParams.id");
+			token = json_object_dotget_string(json_value_get_object(parser), "data.token");
+			url = json_object_get_string(json_value_get_object(parser), "url");
+			method = json_object_get_string(json_value_get_object(parser), "method");
+			urlParams = "raspuns1=omul&raspuns2=numele&id="  + id;
+			coockies =  getCoockies(response);
+		}
+
+	}
+	void solveTask3(){
+		if(method == "GET"){
+			socket = open_connection("185.118.200.35", 8081, AF_INET, SOCK_STREAM, 0);
+			string taskRequest = GET("185.118.200.35", url, urlParams, token, coockies);
+			send_to_server(socket, taskRequest.c_str());
+			string response  = receive_from_server(socket);
+			cout << "________________TASK3________________\n";
+			cout << response << "\n\n";
+			char jsonChar[LINE_SIZE];
+			memcpy(jsonChar, (response.substr(response.find("\r\n\r\n")+4,response.length())).c_str(), response.length() - response.find("\r\n\r\n") - 4); 
+			
+			JSON_Value  *parser = json_parse_string(jsonChar);
+			url = json_object_get_string(json_value_get_object(parser), "url");
+			method = json_object_get_string(json_value_get_object(parser), "method");
+			coockies =  getCoockies(response);
+		}
+	}
+
+	void solveTask4(){
+		if(method == "GET"){
+			socket = open_connection("185.118.200.35", 8081, AF_INET, SOCK_STREAM, 0);
+			string taskRequest = GET("185.118.200.35", url, "", token, coockies);
+			send_to_server(socket, taskRequest.c_str());
+			string response  = receive_from_server(socket);
+			cout << "________________TASK4________________\n";
+			cout << response << "\n\n";
+			char jsonChar[LINE_SIZE];
+			memcpy(jsonChar, (response.substr(response.find("\r\n\r\n")+4,response.length())).c_str(), response.length() - response.find("\r\n\r\n") - 4); 
+			
+			// JSON_Value  *parser = json_parse_string(jsonChar);
+			// url = json_object_get_string(json_value_get_object(parser), "url");
+			// method = json_object_get_string(json_value_get_object(parser), "method");
+			// coockies =  getCoockies(response);
+		}
 	}
 };
 
 int main(){
 	Client client;
 	client.solveTask1();
+	client.solveTask2();
+	client.solveTask3();
+	client.solveTask4();
 }
