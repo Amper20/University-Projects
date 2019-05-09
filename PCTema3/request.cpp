@@ -21,7 +21,7 @@ string GET(string host, string url, string params, string auth, vector<string> c
         ret += "Host: " + host + "\r\n";
         if(auth != "")
                 ret += "Authorization: Bearer " + auth + "\r\n";
-        for(int i = 0 ; i < coockies.size(); i++){
+        for(unsigned int i = 0 ; i < coockies.size(); i++){
                 ret += "Cookie: " + coockies[i] + "\r\n";
         }
         ret += "\r\n"; // final line
@@ -29,10 +29,12 @@ string GET(string host, string url, string params, string auth, vector<string> c
 }
 
 
-string POST(string host, string url, string data, string type, string method, vector<string> coockies){
+string POST(string host, string url, string data, string type, string method, vector<string> coockies, string auth){
         string ret = method + " " + url + " HTTP/1.1\r\n";
         ret += "Host: " + host + "\r\n";
-        for(int i = 0 ; i < coockies.size(); i++){
+        if(auth != "")
+                ret += "Authorization: Bearer " + auth + "\r\n";
+        for(unsigned int i = 0 ; i < coockies.size(); i++){
                 ret += "Cookie: " + coockies[i] + "\r\n";
         }
         ret += "Content-Type: " + type + "\r\n";

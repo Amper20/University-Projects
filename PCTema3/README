@@ -1,0 +1,17 @@
+Tema3 PC
+
+Realizat de: Butmalai Dan 323CC
+Timp de rezolvare: 6-7h
+
+---client.cpp---
+Rezolva cerintele primite in cadrul  temei
+si in cadrul raspunsurilor primite de la server.
+
+---reqest.cpp---
+Contite functii care genereaza requesturile Post si Get.
+
+---utils.cpp---
+Fiesier obitnut din materialele oferite in cadrul laboratoarelor.
+Realizaeaza conexiunea cu serverul, primeste si trimite date
+de la server.
+

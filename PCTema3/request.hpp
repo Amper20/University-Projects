@@ -19,6 +19,6 @@ using namespace std;
 
 string GET(string host, string url, string params, string auth, vector<string> coockies);
 
-string POST(string host, string url, string data, string type, string method, vector<string> coockies);
+string POST(string host, string url, string data, string type, string method, vector<string> coockies, string auth);
 
 #endif
