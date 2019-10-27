@@ -13,6 +13,7 @@ class Laborator4 : public SimpleScene
 		void FrameStart() override;
 		void Update(float deltaTimeSeconds) override;
 		void FrameEnd() override;
+		void Laborator4::UpdateTime(float delta);
 
 		void OnInputUpdate(float deltaTime, int mods) override;
 		void OnKeyPress(int key, int mods) override;
@@ -25,6 +26,9 @@ class Laborator4 : public SimpleScene
 
 	protected:
 		glm::mat4 modelMatrix;
+		float looperTimer = 0, globalTime = 0;
+		int flag = 0;
+		float maxLooperTime = 1.0, minLooperTime = 0.5;
 		float translateX, translateY, translateZ;
 		float scaleX, scaleY, scaleZ;
 		float angularStepOX, angularStepOY, angularStepOZ;

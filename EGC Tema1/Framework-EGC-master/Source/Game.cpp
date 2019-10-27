@@ -53,7 +53,7 @@ void Game::Init()
 		AddMeshToList(it.first);
 	}
 	for (auto it : obstacle.getMeshes()){
-		cout << (it.first)->GetMeshID << "\n";
+		//cout << (it.first)->GetMeshID << "\n";
 		AddMeshToList(it.first);
 	}
 }

@@ -5,7 +5,7 @@ using namespace std;
 
 #include <Core/Engine.h>
 
-#include <Game.h>
+#include <Laboratoare/LabList.h>
 
 int main(int argc, char **argv)
 {
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	WindowObject* window = Engine::Init(wp);
 
 	// Create a new 3D world and start running it
-	World *world = new Game();
+	World *world = new Laborator4();
 	world->Init();
 	world->Run();
 

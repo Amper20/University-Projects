@@ -52,27 +52,54 @@ void Laborator4::FrameStart()
 	glViewport(0, 0, resolution.x, resolution.y);
 }
 
+void Laborator4::UpdateTime(float delta) {
+	globalTime += delta;
+	looperTimer += (flag ? -delta: delta);
+	//cout << looperTimer << " " << flag << "\n";
+	if (looperTimer >= maxLooperTime || looperTimer <= minLooperTime) flag = !flag;
+}
+
 void Laborator4::Update(float deltaTimeSeconds)
 {
 	glLineWidth(3);
 	glPointSize(5);
 	glPolygonMode(GL_FRONT_AND_BACK, polygonMode);
 
+	UpdateTime(deltaTimeSeconds);
+
 	modelMatrix = glm::mat4(1);
 	modelMatrix *= Transform3D::Translate(-2.5f, 0.5f,-1.5f);
-	modelMatrix *= Transform3D::Translate(translateX, translateY, translateZ);
+	modelMatrix *= Transform3D::Translate(translateX, translateY, translateZ + looperTimer);
 	RenderMesh(meshes["box"], shaders["VertexNormal"], modelMatrix);
 
 	modelMatrix = glm::mat4(1);
 	modelMatrix *= Transform3D::Translate(0.0f, 0.5f, -1.5f);
-	modelMatrix *= Transform3D::Scale(scaleX, scaleY, scaleZ);
+	modelMatrix *= Transform3D::Scale(scaleX * looperTimer, scaleY*looperTimer, scaleZ*looperTimer);
 	RenderMesh(meshes["box"], shaders["Simple"], modelMatrix);
 
 	modelMatrix = glm::mat4(1);
 	modelMatrix *= Transform3D::Translate(2.5f, 0.5f, -1.5f);
 	modelMatrix *= Transform3D::RotateOX(angularStepOX);
 	modelMatrix *= Transform3D::RotateOY(angularStepOY);
+	modelMatrix *= Transform3D::RotateOZ(angularStepOZ+globalTime);
+	RenderMesh(meshes["box"], shaders["VertexNormal"], modelMatrix);
+
+	//earth
+	modelMatrix = glm::mat4(1);
+	modelMatrix *= Transform3D::Translate(5.0f + looperTimer * 2, 0.0f, 0.0f);
+	modelMatrix *= Transform3D::RotateOX(angularStepOX);
+	modelMatrix *= Transform3D::RotateOY(angularStepOY);
 	modelMatrix *= Transform3D::RotateOZ(angularStepOZ);
+	RenderMesh(meshes["box"], shaders["VertexNormal"], modelMatrix);
+
+	//moon
+	modelMatrix = glm::mat4(1);
+	modelMatrix *= Transform3D::Translate(5.0f + looperTimer * 2, 0.0f, 0.0f);
+	modelMatrix *= Transform3D::RotateOX(angularStepOX);
+	modelMatrix *= Transform3D::RotateOY(angularStepOY + globalTime);
+	modelMatrix *= Transform3D::RotateOZ(angularStepOZ);
+	modelMatrix *= Transform3D::Translate(2.5f, 0.0f, 0.0f);
+	modelMatrix *= Transform3D::Scale(scaleX * 0.5, scaleY * 0.5, scaleZ * 0.5);
 	RenderMesh(meshes["box"], shaders["VertexNormal"], modelMatrix);
 }
 
