@@ -1,7 +1,6 @@
 var scene, camera, render, controls;
 
 initWorld();
-initCubes();
 
 function initWorld(){
     //set up scene and camera
@@ -51,19 +50,42 @@ function initCubes(){
 }
 
 var animate = function () {
-    requestAnimationFrame( animate );
-    analyser.getFrequencyData();
-    var data = analyser.data;
-    for (var i = 0 ; i < data.length; i++){
-        cubes[0][i].scale.set( 1, Math.max(1, data[i]/2), 1);
-        wireframe[0][i].scale.set( 1, Math.max(1, data[i]/2), 1);
+    if (modeChanged){
+        initCubes();
+        modeChanged = false;
     }
-    cubes[0][0].rotation.x += 0.01;
-    cubes[0][0].rotation.y += 0.01;
-    wireframe[0][0].rotation.x += 0.01;
-    wireframe[0][0].rotation.y += 0.01;
+    requestAnimationFrame( animate );
+    if(typeof analyser != 'undefined'){
+        analyser.getFrequencyData();
+        var data = analyser.data;
+        var mode = document.getElementById("mode").value;
+        switch (mode){
+            case "1":
+                console.log(data);
+                for (var i = 0 ; i < cubes.length; i++){
+                    for (var j = 0 ; j < cubes.length; j++){   
+                        console.log(i, j); 
+                        cubes[i][j].scale.set( 1, Math.max(1, data[i+j]/4), 1);
+                        wireframe[i][j].scale.set( 1, Math.max(1, data[i+j]/4), 1);
+                    }
+                }
+                // cubes[0][0].rotation.x += 0.01;
+                // cubes[0][0].rotation.y += 0.01;
+                // wireframe[0][0].rotation.x += 0.01;
+                // wireframe[0][0].rotation.y += 0.01;            
+                break;
+            case "2":
 
-    renderer.render( scene, camera );
+                break;
+            case "3":
+
+                break;
+            case "4":
+
+                break;    
+        }
+        renderer.render( scene, camera );
+    }
 };
 
 animate();

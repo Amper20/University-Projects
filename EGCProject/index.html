@@ -9,13 +9,21 @@
         </style>       
 	</head>
 	<body>
-        <div id="menu">
-            <button id="play">Play</button>
-            <button id="pause">Pause</button>
-            <select id="selector">
-                <option value="ugotdat.mp3">ugotDat</option>
+        <div id="menu" style="padding: 5px;">
+            <p id = "startupInfo">Press Play</p>
+            <button id="play" style="height:40px;width:80px">Play</button>
+            <button id="pause" style="height:40px;width:80px">Pause</button>
+            <select id="selector" style="height:40px;width:100px">
+                <option value="ugotdat.mp3">uGotDat</option>
                 <option value="daSong.mp3">Stayin</option>
                 <option value="satisfaction.mp3">Satisfaction</option>
+                <option value="rickroll.mp3">Despacito</option>
+            </select>
+            <select id="mode" style="height:40px;width:200px">
+                <option value="1">Mode 1: The cube</option>
+                <option value="2">Mode 2: </option>
+                <option value="3">Mode 3: </option>
+                <option value="4">Mode 4: Mushrooms</option>
             </select>
         </div>
         <script src="js/three.js"></script>
