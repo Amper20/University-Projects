@@ -73,20 +73,40 @@ void Game::UpdateObjects(float deltaTimeSeconds) {
 	
 	bird.updateSpeed(g*deltaTimeSeconds);
 	bird.updatePoz(deltaTimeSeconds);
+	obstacle.updateOrigin(deltaTimeSeconds);
+	obstacle.updatePoz(deltaTimeSeconds);
+	updateScore(deltaTimeSeconds);
+}
+
+void Game::CheckCollision() {
+
+	gameOver = false;
+
+	for (auto &it : bird.getMeshes()) 
+		for (auto pos : it.first->vertices) 
+			gameOver |= obstacle.checkColision(it.second, pos.position.x, pos.position.y);
+	
+	if (gameOver)
+		cout << "Game over your score is :" << score << "\nPress R\n";
+}
+
+void Game::updateScore(float bonus) {
+	score += bonus;
 }
 
 void Game::Update(float deltaTimeSeconds)
 {
-	UpdateObjects(deltaTimeSeconds);
+	if (!gameOver) {
+		UpdateObjects(deltaTimeSeconds);
+		CheckCollision();
+	}
 	Render();
 }
 
 void Game::Render() {
 
-	modelMatrix = glm::mat3(1)*Transform2D::Translate(bird.translateX, bird.translateY);
-	modelMatrix *= Transform2D::Scale(0.5, 0.5);
 	for (auto it : bird.getMeshes()) {
-		RenderMesh2D(it.first, shaders["VertexColor"], modelMatrix*it.second);
+		RenderMesh2D(it.first, shaders["VertexColor"], it.second);
 	}
 
 	for (auto it : obstacle.getMeshes()) {
@@ -108,6 +128,12 @@ void Game::OnKeyPress(int key, int mods)
 {
 	if (key == GLFW_KEY_SPACE) {
 		bird.updateSpeed(200);
+	}
+	if (key == GLFW_KEY_R) {
+		obstacle.Reset();
+		bird.Reset();
+		gameOver = false;
+		score = 0;
 	}
 }
 

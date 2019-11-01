@@ -17,6 +17,7 @@ Laborator3::~Laborator3()
 {
 }
 
+
 void Laborator3::Init()
 {
 	glm::ivec2 resolution = window->GetResolution();

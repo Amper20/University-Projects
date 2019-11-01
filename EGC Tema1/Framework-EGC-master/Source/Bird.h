@@ -16,6 +16,8 @@ public:
 	void updatePoz(float time);
 	vector<pair<Mesh *, glm::mat3>> getMeshes();
 	float translateX = 650, translateY = 250;
+	void Reset();
+
 protected:
 	glm::mat3 modelMatrix;
 	float speed = 0;

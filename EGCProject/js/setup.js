@@ -1,15 +1,15 @@
 //cubes, fft related setup
-var cubeNum, cubeSide = 5;
+var cubeNum, cubeSide = 5, padding;
 var cubes, wireframe;
-var fftSize = cubeNum;
+var fftSize;
 var modeChanged = false;
+
 //colors setup
 var floorColor = 0xBBDEF0, skyColor = 0xBBDEF0, cubesColor = 0xF08700;
 document.getElementById("menu").style.backgroundColor = "#BBDEF0";
 
 // play pause setup
 var audio, analyser, mediaElement;
-updateByMode();
 document.getElementById( 'play' ).addEventListener( 'click', clickedPlay);
 document.getElementById( 'pause' ).addEventListener( 'click', clickedPause);
 
@@ -24,7 +24,7 @@ function clickedPlay(){
     mediaElement.loop = true;
     mediaElement.play();
     audio.setMediaElementSource( mediaElement );
-    analyser = new THREE.AudioAnalyser( audio, fftSize );
+    analyser = new THREE.AudioAnalyser( audio, fftSize*2 );
     document.getElementById("selector").value
     console.log("play");
 }
@@ -44,10 +44,11 @@ function updateByMode(){
     modeChanged = true;
     switch (mode){
         case "1":
-            cubeNum = 32, cubeSide = 5;
+            padding = 3;
+            cubeNum = 27, cubeSide = 5;
             cubes = Array(cubeNum).fill().map(()=>Array(cubeNum).fill());
             wireframe = Array(cubeNum).fill().map(()=>Array(cubeNum).fill());
-            fftSize = cubeNum*2;
+            fftSize = (cubeNum + padding*2 - 1)*2;
         case "2":
 
             break;
@@ -59,3 +60,4 @@ function updateByMode(){
             break;    
     }
 }
+

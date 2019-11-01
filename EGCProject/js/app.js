@@ -18,17 +18,10 @@ function initWorld(){
     camera.rotation.set(-2.3797778235060614, -0.515317861964013, -3.0078375034025826);
     //controls.update() must be called after any manual changes to the camera's transform
     controls.update();
-
-    var geo = new THREE.PlaneBufferGeometry(2000, 2000, 8, 8);
-    var mat = new THREE.MeshBasicMaterial({ color: floorColor, side: THREE.DoubleSide });
-    var plane = new THREE.Mesh(geo, mat);
-    plane.position.y -= cubeSide;
-    plane.rotateX( - Math.PI / 2);
-    scene.add(plane);
-
 }
 
 function initCubes(){
+    clearCubes();
     var geometry = new THREE.BoxGeometry( cubeSide, cubeSide, cubeSide );
     var material = new THREE.MeshBasicMaterial( { color: cubesColor } );
     for(var i = 0 ; i < cubeNum; i++){
@@ -49,8 +42,19 @@ function initCubes(){
 
 }
 
+function clearCubes(){
+    if(typeof cubes != 'undefined'){
+        for(var i = 0; i < cubes.length; i++){
+            for (var j = 0; j < cubes[i].length; j++){
+                scene.remove( scene.getObjectByName(""));  
+            }
+        }
+    }
+}
+
 var animate = function () {
     if (modeChanged){
+        clearCubes();
         initCubes();
         modeChanged = false;
     }
@@ -61,18 +65,12 @@ var animate = function () {
         var mode = document.getElementById("mode").value;
         switch (mode){
             case "1":
-                console.log(data);
                 for (var i = 0 ; i < cubes.length; i++){
                     for (var j = 0 ; j < cubes.length; j++){   
-                        console.log(i, j); 
                         cubes[i][j].scale.set( 1, Math.max(1, data[i+j]/4), 1);
-                        wireframe[i][j].scale.set( 1, Math.max(1, data[i+j]/4), 1);
+                        wireframe[i][j].scale.set( 1, Math.max(1, data[i+j]/4 ), 1);
                     }
-                }
-                // cubes[0][0].rotation.x += 0.01;
-                // cubes[0][0].rotation.y += 0.01;
-                // wireframe[0][0].rotation.x += 0.01;
-                // wireframe[0][0].rotation.y += 0.01;            
+                }          
                 break;
             case "2":
 

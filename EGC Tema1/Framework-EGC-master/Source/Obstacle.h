@@ -7,8 +7,8 @@
 
 using namespace std;
 
-class Obstacle
-{
+class Obstacle{
+
 public:
 	Obstacle();
 	~Obstacle();
@@ -19,9 +19,13 @@ public:
 	vector<pair<Mesh *, glm::mat3>> getMeshes();
 	float translateX = 650, translateY = 250;
 	float spawn = 0;
+	vector<pair<double, double>> getOrigin();
+	bool checkColision(glm::mat3 mm, float x, float y);
+	void Reset();
 
 protected:
 	glm::mat3 modelMatrix;
-	float speed = 0;
+	double speed = 200.0f;
+	float widthObstacle = 100, lengthObstacle = 750;
 	vector<pair<Mesh *, glm::mat3>> obstacleMesh;
 };

@@ -10,8 +10,8 @@
 
 using namespace std;
 
-Bird::Bird()
-{
+Bird::Bird(){
+
 	glm::vec3 corner = glm::vec3(0,0,0);
 	float side = 100;
 
@@ -28,12 +28,9 @@ Bird::Bird()
 	modelMatrix *= Transform2D::Translate(-side, side);
 	modelMatrix *= Transform2D::Scale(0.5f,0.7f);
 	birdBody.push_back(make_pair(Object2D::CreateTriangle("nose", corner, side, glm::vec3(1.0, 0.5, 0.0)), modelMatrix));
-
 }
 
-Bird::~Bird()
-{
-}
+Bird::~Bird(){}
 
 void Bird::updateSpeed(float speed){
 	this->speed += speed;
@@ -43,6 +40,20 @@ void Bird::updatePoz(float time) {
 	translateY += time * this->speed;
 }
 
+void Bird::Reset() {
+	speed = 0;
+	translateY = 250;
+}
+
 vector<pair<Mesh *, glm::mat3>> Bird::getMeshes() {
-	return birdBody;
+	
+	vector<pair<Mesh *, glm::mat3>> birdBodyRet;
+	modelMatrix = glm::mat3(1)*Transform2D::Translate(translateX, translateY);
+	modelMatrix *= Transform2D::Scale(0.5, 0.5);
+
+	for (auto it : birdBody) {
+		birdBodyRet.push_back(make_pair(it.first, modelMatrix*it.second));
+	}
+	return birdBodyRet;
+	
 }
