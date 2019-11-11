@@ -24,3 +24,8 @@ F = 185
 G = 96
 H = 223
 I = 218
+ex
+ex
+copy running-config startup-config 
+
+
