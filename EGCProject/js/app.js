@@ -4,8 +4,16 @@ var scene, camera, render, controls;
 // Cubes, fft related setup
 var cubeNum, cubeSide = 5, padding;
 var cubes, wireframe;
-var fftSize;
+var fftSize = 64;
 var modeChanged = false;
+
+// Points mode
+var SEPARATION = 55, AMOUNTX = 100, AMOUNTY = 128;
+var particles, count = 0;
+var mouseX = 0, mouseY = 0;
+var windowHalfX = window.innerWidth / 2;
+var windowHalfY = window.innerHeight / 2;
+
 
 // Mushrums mode
 var uniforms;
@@ -21,6 +29,7 @@ document.getElementById( 'play' ).addEventListener( 'click', clickedPlay);
 document.getElementById( 'pause' ).addEventListener( 'click', clickedPause);
 
 initWorld();
+updateByMode();
 
 function clearCubes(){
     if(typeof cubes != 'undefined')
@@ -31,10 +40,12 @@ function clearCubes(){
             }
 }
 
+function clearPoints(){
+    scene.remove(particles);
+}
+
 function clickedPlay(){
     
-    clearCubes();
-
     updateByMode();
     
     document.getElementById("startupInfo").style.display = "none";
@@ -67,7 +78,7 @@ function clickedPause(){
 function initWorld(){
     // set up scene and camera
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 10000 );
 
     // set up renderer 
     renderer = new THREE.WebGLRenderer();
@@ -84,11 +95,64 @@ function initWorld(){
     controls.update();
 }
 
+function initPoints(){
+    var numParticles = AMOUNTX * AMOUNTY;
+
+    var positions = new Float32Array( numParticles * 3 );
+    var scales = new Float32Array( numParticles );
+
+    var i = 0, j = 0;
+
+    for ( var ix = 0; ix < AMOUNTX; ix ++ ) {
+
+        for ( var iy = 0; iy < AMOUNTY; iy ++ ) {
+
+            positions[ i ] = ix * SEPARATION - ( ( AMOUNTX * SEPARATION ) / 2 ); // x
+            positions[ i + 1 ] = 0; // y
+            positions[ i + 2 ] = iy * SEPARATION - ( ( AMOUNTY * SEPARATION ) / 2 ); // z
+
+            scales[ j ] = 1;
+
+            i += 3;
+            j ++;
+
+        }
+
+    }
+
+    var geometry = new THREE.BufferGeometry();
+    geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+    geometry.setAttribute( 'scale', new THREE.BufferAttribute( scales, 1 ) );
+
+    var material = new THREE.ShaderMaterial( {
+        
+        uniforms: {
+            color: { value: new THREE.Color( 0x000000 ) },
+        },
+        vertexShader: document.getElementById( 'vertexshader' ).textContent,
+        fragmentShader: document.getElementById( 'fragmentshader' ).textContent
+
+    } );
+
+    //
+
+    particles = new THREE.Points( geometry, material );
+    scene.add( particles );
+
+    //
+}
+
 function initCubes(){
 
     //clear peviously existing cubes
     clearCubes();
     
+    padding = 3;
+    cubeNum = 27, cubeSide = 5;
+    cubes = Array(cubeNum).fill().map(()=>Array(cubeNum).fill());
+    wireframe = Array(cubeNum).fill().map(()=>Array(cubeNum).fill());
+    fftSize = (cubeNum + padding*2 - 1)*2;
+
     var geometry = new THREE.BoxGeometry( cubeSide, cubeSide, cubeSide );
     var material = new THREE.MeshBasicMaterial( { color: cubesColor } );
     var lineMaterial = new THREE.LineBasicMaterial({ color: 0xBBDEF0});
@@ -113,52 +177,30 @@ function initCubes(){
 }
 
 document.getElementById("mode").onchange = function(){
-    clearCubes();
     updateByMode();
 }
 
 function updateByMode(){
 
+    clearCubes();
+    clearPoints();
     var mode = document.getElementById("mode").value;
-    modeChanged = true;
     switch (mode){
         case "1":
-            padding = 3;
-            cubeNum = 27, cubeSide = 5;
-            cubes = Array(cubeNum).fill().map(()=>Array(cubeNum).fill());
-            wireframe = Array(cubeNum).fill().map(()=>Array(cubeNum).fill());
-            fftSize = (cubeNum + padding*2 - 1)*2;
+            initCubes();
         case "2":
-
+            initPoints();   
             break;
         case "3":
-
             break;
         case "4":
-            camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
-            scene = new THREE.Scene();
-            var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
-            uniforms = {
-                "time": { value: 1.0 }
-            };
-            var material = new THREE.ShaderMaterial( {
-                uniforms: uniforms,
-                vertexShader: document.getElementById( 'vertexShader' ).textContent,
-                fragmentShader: document.getElementById( 'fragmentShader' ).textContent
-            } );
-            var mesh = new THREE.Mesh( geometry, material );
-            scene.add( mesh );
-
             break;    
     }
 }
 
 
 var animate = function () {
-    if (modeChanged){
-        initCubes();
-        modeChanged = false;
-    }
+    
     requestAnimationFrame( animate );
     if(typeof analyser != 'undefined'){
         analyser.getFrequencyData();
@@ -174,15 +216,36 @@ var animate = function () {
                 }          
                 break;
             case "2":
+                var positions = particles.geometry.attributes.position.array;
+				var scales = particles.geometry.attributes.scale.array;
 
+				var i = 0, j = 0;
+
+				for ( var ix = 0; ix < AMOUNTX; ix ++ ) {
+
+					for ( var iy = 0; iy < AMOUNTY; iy ++ ) {
+
+						positions[ i + 1 ] = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
+										( Math.sin( ( iy + count ) * 0.5 ) * 50 ) + data[ix] * 3;
+
+						scales[ j ] = ( Math.sin( ( ix + count ) * 0.3 ) + 1 ) * 10 +
+										( Math.sin( ( iy + count ) * 0.5 ) + 1 ) * 10 + data[ix]/5;
+
+						i += 3;
+						j ++;
+
+					}
+
+				}
+
+				particles.geometry.attributes.position.needsUpdate = true;
+				particles.geometry.attributes.scale.needsUpdate = true;
+				count += 0.1;
                 break;
             case "3":
 
                 break;
             case "4":
-                console.log (timestamp/1000);
-				requestAnimationFrame( animate );
-				uniforms[ "time" ].value = (timestamp/1000);//*Math.abs(Math.sin(timestamp/1000));
                 break;    
         }
         renderer.render( scene, camera );
