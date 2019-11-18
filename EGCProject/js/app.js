@@ -14,9 +14,10 @@ var mouseX = 0, mouseY = 0;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
-
 // Mushrums mode
-var uniforms;
+var spheres, mushroomMaterial;
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+divfactor = 50000;
 
 // play pause setup
 var audio, analyser, mediaElement;
@@ -51,11 +52,20 @@ function clearPoints(){
     scene.remove(particles);
 }
 
+function clearSpheres(){
+    scene.remove(spheres);
+}
+
+function removeAll(){
+    clearPoints();
+    clearSpheres();
+    clearCubes();
+}
+
 function clickedPlay(){
     
     updateByMode();
     
-    document.getElementById("startupInfo").style.display = "none";
     
     // setup media element
     if (typeof mediaElement !== 'undefined') 
@@ -151,8 +161,7 @@ function initPoints(){
 function initCubes(){
 
     //clear peviously existing cubes
-    clearCubes();
-    clearPoints();
+    removeAll();
 
     padding = 3;
     cubeNum = 27, cubeSide = 5;
@@ -183,10 +192,51 @@ function initCubes(){
 
 }
 
+function initSpheres() {
+
+
+    var circleGeometry = new THREE.CircleBufferGeometry( 1, 6 );
+
+    var geometry = new THREE.InstancedBufferGeometry();
+    geometry.index = circleGeometry.index;
+    geometry.attributes = circleGeometry.attributes;
+
+    var particleCount = 75000;
+
+    var translateArray = new Float32Array( particleCount * 3 );
+
+    for ( var i = 0, i3 = 0, l = particleCount; i < l; i ++, i3 += 3 ) {
+
+        translateArray[ i3 + 0 ] = Math.random() * 2 - 1;
+        translateArray[ i3 + 1 ] = Math.random() * 2 - 1;
+        translateArray[ i3 + 2 ] = Math.random() * 2 - 1;
+
+    }
+
+    geometry.setAttribute( 'translate', new THREE.InstancedBufferAttribute( translateArray, 3 ) );
+
+    mushroomMaterial = new THREE.RawShaderMaterial( {
+        uniforms: {
+            "map": { value: new THREE.TextureLoader().load( '/js/circle.png' ) },
+            "time": { value: 0.0 }
+        },
+        vertexShader: document.getElementById( 'vshaderpsyh' ).textContent,
+        fragmentShader: document.getElementById( 'fshaderpsyh' ).textContent,
+        depthTest: true,
+        depthWrite: true
+    } );
+
+    spheres = new THREE.Mesh( geometry, mushroomMaterial );
+    spheres.scale.set( 500, 500, 500 );
+    spheres.name = "spheres";
+    scene.add( spheres );
+
+}
+
 function updateByMode(){
 
-    clearCubes();
-    clearPoints();
+    removeAll();
+
     var mode = document.getElementById("mode").value;
     console.log("mode = ");
     console.log(mode);
@@ -215,6 +265,9 @@ function updateByMode(){
             //controls.update() must be called after any manual changes to the camera's transform
             controls.update();
             console.log(camera.position);
+    }
+    if(mode == "mushroom"){
+        initSpheres();
     }
     console.log(camera.position);
 }
@@ -261,6 +314,14 @@ var animate = function () {
 				particles.geometry.attributes.position.needsUpdate = true;
 				particles.geometry.attributes.scale.needsUpdate = true;
                 count += 0.1;
+        }
+        if("mushroom" == mode){
+            var time = performance.now() * 0.0005;
+            var sum = data.reduce(reducer); 
+			mushroomMaterial.uniforms[ "time" ].value = sum/divfactor + time;
+
+			//spheres.rotation.x = sum/divfactor;
+			//spheres.rotation.y = sum/divfactor;
         }
     }
     renderer.render( scene, camera );  
