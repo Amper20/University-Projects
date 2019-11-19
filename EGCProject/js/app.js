@@ -13,11 +13,12 @@ var particles, count = 0;
 var mouseX = 0, mouseY = 0;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
+var acumulator = 0;
 
 // Mushrums mode
 var spheres, mushroomMaterial;
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-divfactor = 50000;
+divfactor = 7000;
 
 // play pause setup
 var audio, analyser, mediaElement;
@@ -95,7 +96,7 @@ function clickedPause(){
 function initWorld(){
     // set up scene and camera
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 10000 );
+    camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 10, 10000 );
 
     // set up renderer 
     renderer = new THREE.WebGLRenderer();
@@ -201,15 +202,23 @@ function initSpheres() {
     geometry.index = circleGeometry.index;
     geometry.attributes = circleGeometry.attributes;
 
-    var particleCount = 75000;
+    var particleCount = 175000;
 
     var translateArray = new Float32Array( particleCount * 3 );
 
     for ( var i = 0, i3 = 0, l = particleCount; i < l; i ++, i3 += 3 ) {
+        var radius = 1;
+        var u = Math.random();
+        var v = Math.random();
+        var theta = 2 * Math.PI * u;
+        var phi = Math.acos(2 * v - 1);
+        var x = (Math.sin(phi) * Math.cos(theta));
+        var y = (Math.sin(phi) * Math.sin(theta));
+        var z = (Math.cos(phi));
 
-        translateArray[ i3 + 0 ] = Math.random() * 2 - 1;
-        translateArray[ i3 + 1 ] = Math.random() * 2 - 1;
-        translateArray[ i3 + 2 ] = Math.random() * 2 - 1;
+        translateArray[ i3 + 0 ] = x;
+        translateArray[ i3 + 1 ] = y;
+        translateArray[ i3 + 2 ] = z;
 
     }
 
@@ -227,7 +236,7 @@ function initSpheres() {
     } );
 
     spheres = new THREE.Mesh( geometry, mushroomMaterial );
-    spheres.scale.set( 500, 500, 500 );
+    spheres.scale.set( 1000, 1000, 1000 );
     spheres.name = "spheres";
     scene.add( spheres );
 
@@ -238,38 +247,39 @@ function updateByMode(){
     removeAll();
 
     var mode = document.getElementById("mode").value;
-    console.log("mode = ");
-    console.log(mode);
+    skyColor = 0x808080; 
+
     if (mode == "cubes"){
-            console.log("1");
-            console.log(mode);
-            console.log(camera.position);
+        
             initCubes();
-            //{x: -102.9448543720884, y: 119.76030964078583, z: 163.86472355814035}
-            //{_x: -0.638327321350248, _y: -0.521665272555228, _z: -0.35414285996149464, 
+            
             camera.position.set( -133.7817033929154, 95.38754075877799, 154.8839474041323);
             camera.rotation.set(-0.5520030533709762, -0.6341343221091368, -0.34987573749653283);
-            //controls.update() must be called after any manual changes to the camera's transform
             controls.update();
-            console.log(camera.position);
+            
     }
     if (mode == "points"){
-            console.log(camera.position);
-            console.log(mode);
-            console.log("2");
+
             initPoints();   
-            // /camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 10000 );
+            
             camera.position.set(2016.155805055435, 1292.664447920684, 43.006988236302526);
             camera.rotation.set(-1.5375385615942183, 1.0004142037624637, 1.531289459027026);
-            camera.aspect = 2.0869565217391304
-            //controls.update() must be called after any manual changes to the camera's transform
             controls.update();
-            console.log(camera.position);
+
     }
     if(mode == "mushroom"){
         initSpheres();
+
+        camera.position.set(-1410.652228089194, 233.37398514517994, -60.5994668853419);
+        camera.rotation.set(-1.8248522218279715, -1.4015088370798527, -1.8283768565046559);
+        controls.update();
+
+        skyColor = 0xFFFFFF;
+    
     }
-    console.log(camera.position);
+    
+    renderer.setClearColor( skyColor, 1 );
+
 }
 
 
@@ -293,7 +303,6 @@ var animate = function () {
 				var scales = particles.geometry.attributes.scale.array;
 
 				var i = 0, j = 0;
-
 				for ( var ix = 0; ix < AMOUNTX; ix ++ ) {
 
 					for ( var iy = 0; iy < AMOUNTY; iy ++ ) {
@@ -318,10 +327,10 @@ var animate = function () {
         if("mushroom" == mode){
             var time = performance.now() * 0.0005;
             var sum = data.reduce(reducer); 
-			mushroomMaterial.uniforms[ "time" ].value = sum/divfactor + time;
-
-			//spheres.rotation.x = sum/divfactor;
-			//spheres.rotation.y = sum/divfactor;
+            mushroomMaterial.uniforms[ "time" ].value = sum/divfactor;
+            acumulator += sum/divfactor;
+			spheres.rotation.x += 0.001;
+			spheres.rotation.y += 0.001;
         }
     }
     renderer.render( scene, camera );  
