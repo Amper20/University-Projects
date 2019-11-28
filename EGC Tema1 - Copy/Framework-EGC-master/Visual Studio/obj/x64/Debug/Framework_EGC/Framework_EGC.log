@@ -1,0 +1,45 @@
+﻿  Bird.cpp
+  CameraInput.cpp
+  SceneInput.cpp
+  SimpleScene.cpp
+  Engine.cpp
+  GPUBuffers.cpp
+  Mesh.cpp
+  Shader.cpp
+  Texture2D.cpp
+  TextureManager.cpp
+  InputController.cpp
+  WindowCallbacks.cpp
+  WindowObject.cpp
+  World.cpp
+  Game.cpp
+  gl.cpp
+  Main.cpp
+  Object2D.cpp
+  Obstacle.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\utility(239): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty1=float
+          ] (compiling source file ..\Source\Obstacle.cpp)
+  c:\users\master\desktop\ccturi\university-projects\egc tema1 - copy\framework-egc-master\source\obstacle.cpp(36): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,double,0>(std::pair<int,double> &&) noexcept' being compiled
+  c:\users\master\desktop\ccturi\university-projects\egc tema1 - copy\framework-egc-master\source\obstacle.cpp(36): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,double,0>(std::pair<int,double> &&) noexcept' being compiled
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.15.26726\include\utility(240): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=double
+          ]
+          and
+          [
+              _Ty2=float
+          ] (compiling source file ..\Source\Obstacle.cpp)
+  Framework_EGC.vcxproj -> C:\Users\Master\Desktop\CCTuri\University-Projects\EGC Tema1 - Copy\Framework-EGC-master\Visual Studio\..\x64\Debug\Framework_EGC.exe
+  A subdirectory or file C:\Users\Master\Desktop\CCTuri\University-Projects\EGC Tema1 - Copy\Framework-EGC-master\Visual Studio\scripts\..\..\x64\Debug already exists.
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied
+  0 File(s) copied

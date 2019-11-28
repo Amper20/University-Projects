@@ -5,20 +5,16 @@ var scene, camera, render, controls;
 var cubeNum, cubeSide = 5, padding;
 var cubes, wireframe;
 var fftSize = 64;
-var modeChanged = false;
 
 // Points mode
 var SEPARATION = 55, AMOUNTX = 100, AMOUNTY = 128;
-var particles, count = 0;
-var mouseX = 0, mouseY = 0;
-var windowHalfX = window.innerWidth / 2;
-var windowHalfY = window.innerHeight / 2;
-var acumulator = 0;
 
 // Mushrums mode
+var particles, count = 0;
 var spheres, mushroomMaterial;
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-divfactor = 7000;
+var divfactor = 7000;
+var acumulator = 0;
 
 // play pause setup
 var audio, analyser, mediaElement;
@@ -207,14 +203,18 @@ function initSpheres() {
     var translateArray = new Float32Array( particleCount * 3 );
 
     for ( var i = 0, i3 = 0, l = particleCount; i < l; i ++, i3 += 3 ) {
-        var radius = 1;
         var u = Math.random();
         var v = Math.random();
-        var theta = 2 * Math.PI * u;
-        var phi = Math.acos(2 * v - 1);
-        var x = (Math.sin(phi) * Math.cos(theta));
-        var y = (Math.sin(phi) * Math.sin(theta));
-        var z = (Math.cos(phi));
+        var theta = u * 2.0 * Math.PI;
+        var phi = Math.acos(2.0 * v - 1.0);
+        var r = Math.cbrt(Math.random());
+        var sinTheta = Math.sin(theta);
+        var cosTheta = Math.cos(theta);
+        var sinPhi = Math.sin(phi);
+        var cosPhi = Math.cos(phi);
+        var x = r * sinPhi * cosTheta;
+        var y = r * sinPhi * sinTheta;
+        var z = r * cosPhi; 
 
         translateArray[ i3 + 0 ] = x;
         translateArray[ i3 + 1 ] = y;
@@ -236,7 +236,7 @@ function initSpheres() {
     } );
 
     spheres = new THREE.Mesh( geometry, mushroomMaterial );
-    spheres.scale.set( 1000, 1000, 1000 );
+    spheres.scale.set( 1500, 1500, 1500 );
     spheres.name = "spheres";
     scene.add( spheres );
 
@@ -251,26 +251,27 @@ function updateByMode(){
 
     if (mode == "cubes"){
         
-            initCubes();
-            
-            camera.position.set( -133.7817033929154, 95.38754075877799, 154.8839474041323);
-            camera.rotation.set(-0.5520030533709762, -0.6341343221091368, -0.34987573749653283);
-            controls.update();
+        initCubes();
+        
+        camera.position.set( -133.7817033929154, 95.38754075877799, 154.8839474041323);
+        camera.rotation.set(-0.5520030533709762, -0.6341343221091368, -0.34987573749653283);
+        controls.update();
             
     }
     if (mode == "points"){
 
-            initPoints();   
-            
-            camera.position.set(2016.155805055435, 1292.664447920684, 43.006988236302526);
-            camera.rotation.set(-1.5375385615942183, 1.0004142037624637, 1.531289459027026);
-            controls.update();
+        initPoints();   
+        
+        camera.position.set(2016.155805055435, 1292.664447920684, 43.006988236302526);
+        camera.rotation.set(-1.5375385615942183, 1.0004142037624637, 1.531289459027026);
+        controls.update();
 
     }
     if(mode == "mushroom"){
+        
         initSpheres();
 
-        camera.position.set(-1410.652228089194, 233.37398514517994, -60.5994668853419);
+        camera.position.set(-295.94744531874784, 111.33210376848776, -67.58778992352802);
         camera.rotation.set(-1.8248522218279715, -1.4015088370798527, -1.8283768565046559);
         controls.update();
 
@@ -320,8 +321,6 @@ var animate = function () {
 
 				}
 
-				particles.geometry.attributes.position.needsUpdate = true;
-				particles.geometry.attributes.scale.needsUpdate = true;
                 count += 0.1;
         }
         if("mushroom" == mode){
@@ -329,8 +328,9 @@ var animate = function () {
             var sum = data.reduce(reducer); 
             mushroomMaterial.uniforms[ "time" ].value = sum/divfactor;
             acumulator += sum/divfactor;
-			spheres.rotation.x += 0.001;
-			spheres.rotation.y += 0.001;
+			spheres.rotation.x += 0.002;
+            spheres.rotation.y += 0.002;
+            spheres.rotation.z += 0.002;
         }
     }
     renderer.render( scene, camera );  
