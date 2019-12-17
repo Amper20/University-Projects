@@ -1,0 +1,13 @@
+5 obiecte simple: meshSubChild.obj,meshSubChild1.obj,meshSubChild2.obj,simpleCube.obj,simpleObject.obj
+3 obiecte complexe: mesh.obj,meshChild1.obj,meshChild2.obj
+Object mesh.obj
+	Object meshChild1.obj
+		Object meshSubChild.obj
+	Object meshChild2.obj
+		Object meshSubChild1.obj
+		Object meshSubChild2.obj
+Object meshChild1.obj
+	Object meshSubChild.obj
+Object meshChild2.obj
+	Object meshSubChild1.obj
+	Object meshSubChild2.obj

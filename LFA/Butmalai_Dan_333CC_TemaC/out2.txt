@@ -1,0 +1,8 @@
+3 obiecte simple: o4,o3,o5
+2 obiecte complexe: o1,o2
+Object o1
+	Object o2
+		Object o4
+	Object o3
+Object o2
+	Object o4
