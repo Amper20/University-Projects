@@ -1,5 +1,5 @@
 build:
-	mpic++ tema3.cpp -o tema3
+	mpic++ tema3.cpp -o tema3 -lm
 run: 
 	make build
 	mpirun -np 4 ./tema3 darth-vader.pgm out.pgm blur

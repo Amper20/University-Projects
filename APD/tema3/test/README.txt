@@ -1,1 +1,0 @@
-bssembssem = blur smooth sharpen emboss mean blur smooth sharpen emboss mean

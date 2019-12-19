@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <math.h>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ typedef struct{
 #define MAX_LEN 1000
 
 char str[MAX_LEN];
-int numtasks = 0, id = 0;
+int numtasks = 0, id = 0, start, stop;
 float smooth[3][3] = { {(float)1/9, (float)1/9, (float)1/9}, {(float)1/9, (float)1/9, (float)1/9}, {(float)1/9, (float)1/9, (float)1/9} };
 float zero[3][3] = { {(float)0, (float)0, (float)0}, {(float)0, (float)1, (float)0}, {(float)0, (float)0, (float)0} };
 float blur[3][3] = { {(float)1/16, (float)2/16, (float)1/16}, {(float)2/16, (float)4/16, (float)2/16}, {(float)1/16, (float)2/16, (float)1/16} };
@@ -37,7 +38,7 @@ image* read_image( char *fileName){
     ret->type = 3; 
     if(!strcmp(str, "P5\n"))
         ret->type = 1;
-    
+
     fgets(str, MAX_LEN, fptr);
     if(str[0] == '#')
         fgets(str, MAX_LEN, fptr);
@@ -45,7 +46,9 @@ image* read_image( char *fileName){
     fgets(str, MAX_LEN, fptr);
     sscanf(str, "%d", &ret->maxVal);
     printf("%d %d %d %d\n", ret->width, ret->height, ret->type, ret->maxVal);
+    
     ret->pixels = (pixel **)malloc(sizeof(pixel *)*ret->height);
+
     for(int i = 0; i < ret->height; i++){
         ret->pixels[i] = (pixel *)malloc(sizeof(pixel)*ret->width);
         for(int j = 0 ; j < ret->width; j++){
@@ -74,15 +77,16 @@ void write_image( char *fileName, image* img){
     fclose(fptr);
 }
 
-void init_filters(){
-    
-}
-
 void apply_filter(image* img, char* fltr){
     
     float filter[3][3];
-    pixel pixels[img->height][img->width];
+    pixel **pixels;
     
+    pixels = (pixel **)malloc(sizeof(pixel *)*img->height);
+    for(int i = 0; i < img->height; i++)
+        pixels[i] = (pixel *)malloc(sizeof(pixel)*img->width);
+
+    for(int i = 0; i < 3; i++) for(int j = 0; j < 3; j++) filter[i][j] = zero[i][j];
     if(!strcmp("smooth",fltr))
         for(int i = 0; i < 3; i++) for(int j = 0; j < 3; j++) filter[i][j] = smooth[i][j];
     if(!strcmp("blur",fltr))
@@ -93,13 +97,11 @@ void apply_filter(image* img, char* fltr){
         for(int i = 0; i < 3; i++) for(int j = 0; j < 3; j++) filter[i][j] = mean[i][j];
     if(!strcmp("emboss",fltr))
         for(int i = 0; i < 3; i++) for(int j = 0; j < 3; j++) filter[i][j] = emboss[i][j];
-    if(!strcmp("zero",fltr))
-        for(int i = 0; i < 3; i++) for(int j = 0; j < 3; j++) filter[i][j] = zero[i][j];
     
     for(int i = 0; i < 3; i++) for(int j = 0; j < 3; j++) cout << filter[i][j] << " ";
     cout << "\n";
 
-    for(int i = 0; i < img->height; i++)
+    for(int i = start; i < stop; i++)
         for(int j = 0 ; j < img->width; j++){
             for(int k = 0 ; k < img->type; k++){
                 float sum = 0;
@@ -129,21 +131,41 @@ void apply_filter(image* img, char* fltr){
                 img->pixels[i][j].val[k] = pixels[i][j].val[k];
         }
     }
-    
+
+    for(int i = 0; i < img->height; i++)
+        free(pixels[i]);
+    free(pixels);
 }
 
 int main (int argc, char *argv[])
 {
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD,&numtasks);
-    MPI_Comm_rank(MPI_COMM_WORLD,&id);
-    init_filters();
-    if(id == 0){   
-        image *img = read_image(argv[1]);
-        for(int i = 3; i < argc; i++){
-            apply_filter(img, argv[i]);
+    MPI_Comm_rank(MPI_COMM_WORLD,&id);    
+    image *img = read_image(argv[1]);
+    int start = id*ceil(img->height/numtasks);
+	int stop = (id+1)*ceil(img->height/numtasks);
+    cout << " --------- " << id << " " << start << " " << stop << "\n";
+    for(int i = 3; i < argc; i++){
+        apply_filter(img, argv[i]);
+    }
+
+    int cnt = 0;
+    cout << "blea\n";
+    if(id == 0){
+        for(int j = 1; j < numtasks; j++){
+            int start = j*ceil(img->height/numtasks);
+	        int stop = (j+1)*ceil(img->height/numtasks);
+            for(int i = start; i < stop; i++)
+                MPI_Recv(img->pixels[i], img->width*3, MPI_UNSIGNED_CHAR, j, i, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         }
         write_image(argv[2], img);
+    }else{
+        for(int i = start; i < stop; i++)
+            MPI_Send(img->pixels[i], img->width*3, MPI_UNSIGNED_CHAR, 0, i, MPI_COMM_WORLD), cnt++;
+        cout << cnt <<"\n";
     }
+
     MPI_Finalize();
+    return 0;
 }
