@@ -1,0 +1,70 @@
+A = 38
+B = 15
+C = 56
+D = 21
+E = 94
+F = 84
+G = 196
+H = 108
+I = 223
+J = 232
+K = 238
+
+22196
+22108
+22223
+
+Rețeaua red: 10.83.38.4/30
+Rețeaua green: 10.83.38.8/30
+Rețeaua blue: 10.83.15.16/30
+
+sshpass -p "Student*123321" ssh dan.butmalai@fep.grid.pub.ro
+ssh -i .ssh/openstack.key student@10.9.1.120
+sudo su
+cd
+
+
+ex1
+# host
+ip address add 10.83.38.5/30 dev veth-red
+ip address add 10.83.38.9/30 dev veth-green
+ip address add 10.83.15.17/30 dev veth-blue
+Rețeaua red 2001:83:56::/64
+Rețeaua green 2001:83:21::/64
+Rețeaua blue 2001:83:94::/64
+sysctl -w net.ipv4.ip_forward=1
+
+student
+
+#red
+ip address add 10.83.38.6/30 dev eth0
+ip route add default via 10.83.38.5
+auto eth0
+iface eth0 inet static
+        address 10.83.38.6/30
+        gateway 10.83.38.5
+
+#green
+ip address add 10.83.38.10/30 dev eth0
+ip route add default via 10.83.38.9
+auto eth0
+iface eth0 inet static
+        address 10.83.38.10/30
+        gateway 10.83.38.9
+
+
+#blue
+ip address add 10.83.15.18/30 dev eth0
+ip route add default via 10.83.15.17
+auto eth0
+iface eth0 inet static
+        address 10.83.15.18/30
+        gateway 10.83.15.17
+
+    
+
+id=$(curl -s "imap://berlin:tokyo@host/INBOX/" -X "SEARCH SUBJECT "Secret-$1"" > output.txt &&  cat output.txt | awk '{print $3}'| cut -c1)
+
+curl "imap://berlin:tokyo@host/INBOX;UID=$id/;SECTION=TEXT"
+
+pin

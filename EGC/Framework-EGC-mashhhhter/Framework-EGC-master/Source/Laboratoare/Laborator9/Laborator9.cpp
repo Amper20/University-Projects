@@ -47,6 +47,7 @@ void Laborator9::Init()
 
 	{
 		mapTextures["random"] = CreateRandomTexture(32, 32);
+
 	}
 
 	// Load meshes
@@ -89,6 +90,9 @@ void Laborator9::Init()
 		// TODO : Complete texture coordinates for the square
 		vector<glm::vec2> textureCoords
 		{
+			glm::vec2(1.0f, 0.0f),
+			glm::vec2(1.0f, 1.0f),
+			glm::vec2(0.0f, 1.0f),
 			glm::vec2(0.0f, 0.0f)
 		};
 
@@ -138,7 +142,7 @@ void Laborator9::Update(float deltaTimeSeconds)
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(2, 0.5f, 0));
 		modelMatrix = glm::rotate(modelMatrix, RADIANS(60.0f), glm::vec3(1, 0, 0));
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.75f));
-		RenderSimpleMesh(meshes["box"], shaders["ShaderLab9"], modelMatrix, mapTextures["crate"]);
+		RenderSimpleMesh(meshes["box"], shaders["ShaderLab9"], modelMatrix, mapTextures["crate"], mapTextures["earth"]);
 	}
 
 	{
@@ -153,7 +157,7 @@ void Laborator9::Update(float deltaTimeSeconds)
 		glm::mat4 modelMatrix = glm::mat4(1);
 		modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0f, 0.5f, 0.0f));
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
-		RenderSimpleMesh(meshes["square"], shaders["ShaderLab9"], modelMatrix, mapTextures["grass"]);
+		RenderSimpleMesh(meshes["square"], shaders["ShaderLab9"], modelMatrix, mapTextures["earth"]);
 	}
 
 	{
@@ -193,6 +197,11 @@ void Laborator9::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 
 	if (texture1)
 	{
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1->GetTextureID());
+		glUniform1i(glGetUniformLocation(shader->program, "texture_1"), 0);
+
+		
 		//TODO : activate texture location 0
 		//TODO : Bind the texture1 ID
 		//TODO : Send texture uniform value
@@ -200,11 +209,14 @@ void Laborator9::RenderSimpleMesh(Mesh *mesh, Shader *shader, const glm::mat4 & 
 
 	if (texture2)
 	{
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2->GetTextureID());
+		glUniform1i(glGetUniformLocation(shader->program, "texture_2"), 1);
 		//TODO : activate texture location 1
 		//TODO : Bind the texture2 ID
 		//TODO : Send texture uniform value
 	}
-
+	glUniform1f(glGetUniformLocation(shader->program, "time"), Engine::GetElapsedTime());
 	// Draw the object
 	glBindVertexArray(mesh->GetBuffers()->VAO);
 	glDrawElements(mesh->GetDrawMode(), static_cast<int>(mesh->indices.size()), GL_UNSIGNED_SHORT, 0);
@@ -218,8 +230,32 @@ Texture2D* Laborator9::CreateRandomTexture(unsigned int width, unsigned int heig
 	unsigned char* data = new unsigned char[size];
 
 	// TODO: generate random texture data
-
+	for (int i = 0; i < height / 3; i++) {
+		for (int j = 0; j < width; j++) {
+			data[i*width * 3 + j*3] = 255;
+			data[i*width * 3 + j * 3 + 1] = 0;
+			data[i*width * 3 + j * 3 + 2] = 0;
+		}
+	}
+	for (int i = height / 3; i < 2*height / 3; i++) {
+		for (int j = 0; j < width; j++) {
+			data[i*width * 3 + j * 3] = 0;
+			data[i*width * 3 + j * 3 + 1] = 255;
+			data[i*width * 3 + j * 3 + 2] = 0;
+		}
+	}
+	for (int i = 2* height / 3; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			data[i*width * 3 + j * 3] = 0;
+			data[i*width * 3 + j * 3 + 1] = 0;
+			data[i*width * 3 + j * 3 + 2] = 255;
+		}
+	}
 	// Generate and bind the new texture ID
+	unsigned int gl_texture_object;
+	glGenTextures(1, &gl_texture_object);
+	glBindTexture(GL_TEXTURE_2D, gl_texture_object);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 
 	// TODO: Set the texture parameters (MIN_FILTER, MAG_FILTER and WRAPPING MODE) using glTexParameteri
 
@@ -232,12 +268,12 @@ Texture2D* Laborator9::CreateRandomTexture(unsigned int width, unsigned int heig
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 
 	// TODO: Generate texture mip-maps
-
+	glGenerateMipmap(GL_TEXTURE_2D);
 	CheckOpenGLError();
 
 	// Save the texture into a wrapper Texture2D class for using easier later during rendering phase
 	Texture2D* texture = new Texture2D();
-	texture->Init(textureID, width, height, channels);
+	texture->Init(gl_texture_object, width, height, channels);
 
 	SAFE_FREE_ARRAY(data);
 	return texture;

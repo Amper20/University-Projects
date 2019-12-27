@@ -2,7 +2,95 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ffc0ab1-a612-4715-b988-f8ef9ec76092" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/apdtema2/skeleton (1).zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/src/CommunicationChannel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/src/HeadQuarter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/src/Homework.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/src/Message.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/src/SpaceExplorer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/tema2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/test_cases/test01_answer.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/test_cases/test01_data.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APD/tema2/test_cases/test01_graph.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CN/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/CN/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CN/idea.c" beforeDir="false" afterPath="$PROJECT_DIR$/CN/idea.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CN/idea.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/EGCProject" beforeDir="false" afterPath="$PROJECT_DIR$/EGC/EGCProject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/EGCProject/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/EGC/EGCProject/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Framework-EGC-mashhhhter/Framework-EGC-master/Source/Laboratoare/Laborator9/Laborator9.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/EGC/Framework-EGC-mashhhhter/Framework-EGC-master/Source/Laboratoare/Laborator9/Laborator9.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Framework-EGC-mashhhhter/Framework-EGC-master/Source/Laboratoare/Laborator9/Shaders/FragmentShader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/EGC/Framework-EGC-mashhhhter/Framework-EGC-master/Source/Laboratoare/Laborator9/Shaders/FragmentShader.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Framework-EGC-mashhhhter/Framework-EGC-master/Source/Laboratoare/Laborator9/Shaders/VertexShader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/EGC/Framework-EGC-mashhhhter/Framework-EGC-master/Source/Laboratoare/Laborator9/Shaders/VertexShader.glsl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Framework-EGC-mashhhhter/Framework-EGC-master/Source/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/EGC/Framework-EGC-mashhhhter/Framework-EGC-master/Source/Main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Characters/Archer/Akai_E_Espiritu.fbm/akai_diffuse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Characters/Archer/Akai_E_Espiritu.fbm/akai_normal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Characters/Archer/Archer.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Primitives/box.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Primitives/plane50.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Primitives/quad.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Primitives/screen_quad.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Primitives/teapot.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Props/concrete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Props/concrete_wall.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Props/concrete_wall.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Props/oildrum.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Props/oildrum.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Props/oildrum_center.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Props/oildrum_center.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Props/oildrum_col.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Vegetation/Bamboo/bamboo.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Vegetation/Bamboo/bamboo.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/Vegetation/Bamboo/bamboo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/box.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/cloud.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/fuel.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/plane.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/sea2.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Models/sphere.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/black.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/black30.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/blue.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/default.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/grey.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/noise.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/particle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/random.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Resources/Textures/white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Cloud.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Cloud.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Fuel.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Fuel.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Game.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Game.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/LabCamera.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Laborator5.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Laborator5.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Obstacle.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Obstacle.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Plane.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Plane.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Sea.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Sea.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/CloudFragmentShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/CloudVertexShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/FragmentShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/FuelFragmentShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/FuelVertexShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/PlaneFragmentShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/PlaneVertexShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/SeaFragmentShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/SeaVertexShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Shaders/VertexShader.glsl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/Transform3D.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/include/gl.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/include/gl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/include/glm.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/include/math.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Game/include/utils.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EGC/Tema2/Framework-EGC-master/Source/Main.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pa/PAProject/proiect_PA" beforeDir="false" afterPath="$PROJECT_DIR$/pa/PAProject/proiect_PA" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pa/PAProject/proiect_PA/bot-0.log" beforeDir="false" afterPath="$PROJECT_DIR$/pa/PAProject/proiect_PA/bot-0.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pa/PAProject/proiect_PA/bot-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/pa/PAProject/proiect_PA/bot-1.log" afterDir="false" />
@@ -26,7 +114,6 @@
       <change beforePath="$PROJECT_DIR$/pa/PAProject/proiect_PA/result.json" beforeDir="false" afterPath="$PROJECT_DIR$/pa/PAProject/proiect_PA/result.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pa/PAProject/proiect_PA/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/pa/PAProject/proiect_PA/run.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pa/PAProject/proiect_PA/tmp_arena/halite-III-resources" beforeDir="false" afterPath="$PROJECT_DIR$/pa/PAProject/proiect_PA/tmp_arena/halite-III-resources" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pa/PAProject/proiect_PA/tmp_arena/halite-III-resources/README" beforeDir="false" afterPath="$PROJECT_DIR$/pa/PAProject/proiect_PA/tmp_arena/halite-III-resources/README" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,6 +121,20 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="320128931">
@@ -46,6 +147,30 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-155695388">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/APD/Laburi/apd-lab-recapitulare-master/apd-lab-recapitulare-master/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,8 +181,14 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="446" />
+    <option name="x" value="445" />
     <option name="y" value="-10" />
     <option name="width" value="975" />
     <option name="height" value="915" />
@@ -69,7 +200,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -77,10 +207,42 @@
               <item name="APDTema2" type="b2602c69:ProjectViewProjectNode" />
               <item name="University-Projects" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="APDTema2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="University-Projects" type="462c0819:PsiDirectoryNode" />
+              <item name="APD" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="APDTema2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="University-Projects" type="462c0819:PsiDirectoryNode" />
+              <item name="APD" type="462c0819:PsiDirectoryNode" />
+              <item name="Laburi" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="APDTema2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="University-Projects" type="462c0819:PsiDirectoryNode" />
+              <item name="APD" type="462c0819:PsiDirectoryNode" />
+              <item name="Laburi" type="462c0819:PsiDirectoryNode" />
+              <item name="apd-lab-recapitulare-master" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="APDTema2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="University-Projects" type="462c0819:PsiDirectoryNode" />
+              <item name="APD" type="462c0819:PsiDirectoryNode" />
+              <item name="Laburi" type="462c0819:PsiDirectoryNode" />
+              <item name="apd-lab-recapitulare-master" type="462c0819:PsiDirectoryNode" />
+              <item name="apd-lab-recapitulare-master" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="APDTema2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="University-Projects" type="462c0819:PsiDirectoryNode" />
+              <item name="CN" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -113,22 +275,25 @@
       <updated>1573724118395</updated>
       <workItem from="1573724122205" duration="16000" />
       <workItem from="1573724157166" duration="110000" />
+      <workItem from="1576154472158" duration="1106000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126000" />
+    <option name="totallyTimeSpent" value="1232000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25637585" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -148,8 +313,8 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info anchor="right" id="Database" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="8" />
+      <window_info active="true" anchor="right" id="Maven Projects" order="7" visible="true" weight="0.3295302" />
+      <window_info anchor="right" id="Database" order="8" weight="0.3295302" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,5 +322,17 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/APD/Laburi/apd-lab-recapitulare-master/apd-lab-recapitulare-master/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

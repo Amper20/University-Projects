@@ -1,0 +1,36 @@
+Descriere generala:
+    Fiecare proces citeste imginea specificata ca fiind de input.
+    Se aplica fiecare filtru secificat in args doar pe portiunea decicata fiecarui proces.
+    Prin portiune intelegem imaginea taiata pe randuri in k-1 locuri, k fiind numarul de procese.
+    Fiecare proces va calcula incepund cu start = rank * ceil(img->height/numtasks) si terminanad cu stop = (rank+1)*ceil(img->height/numtasks)
+    se adauga un pading in sus si in jos in dependenta de numarul de filtre care vor fi aplicate adica in dependenta de argc dupa cum urmeaza:
+    padding = argc
+    i variaza de la  MAX(0, start - (id != 0 ? padding : 0)) 
+                la MIN(stop + (id != (numtasks - 1) ? padding : 0), img->height)
+
+Similaritatea imaginilor obtinute:
+    diff nu da nici o diferenta intre imaginea de referinta si output, much wow, very accurate. 
+
+Analiza scalabilitatii:
+    Dupa cum observam din rezultate obtinute programul scaleaza, (timpul executiei scade cu cresterea nr. de procese).
+    Pentru 1 filtru 1 canal (experiment darth-vader) scalarea nu este vizibila, dar pentru imagini mai mari cu mai multe canale este proeminenta.
+    prin -np e indicat nr de procese, si fiecare linie contine timpul final de rulare.
+    landscape.pnm: 
+        10 filtre(bssembssem):
+            -np 1 17.67 s
+            -np 2 11.08 s
+            -np 4 9.23  s
+        1 filtru (blur):
+            -np 1 3.40 s
+            -np 2 3.14 s
+            -np 4 2.72 s
+
+    darth-vader.pgm: 
+        10 filtre(bssembssem):
+            -np 1 1.65 s
+            -np 2 1.21 s
+            -np 4 1.14 s
+        1 filtru (blur):
+            -np 1 0.57 s
+            -np 2 0.55 s
+            -np 4 0.55 s
