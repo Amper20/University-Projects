@@ -1,0 +1,3 @@
+_test/outputs/test0.out vs _test/outputs/test0.ref:
+00) Test stdin file.........................................failed  [ 0/95]
+00) Test stdin file - memcheck..............................failed  [ 0/95]

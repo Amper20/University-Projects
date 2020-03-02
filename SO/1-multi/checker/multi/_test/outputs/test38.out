@@ -1,0 +1,1 @@
+>>>>>>>>>>>>>./so-cpp -D DEBUG=1 -D CUSTOM_DBG=custom-debugging -I _test/inputs/test38.dir _test/inputs/test38.in <<<<<<
