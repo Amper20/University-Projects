@@ -1,1 +1,9 @@
->>>>>>>>>>>>>./so-cpp -D VAR0 _test/inputs/test29.in <<<<<<
+#ifdef VAR0
+#undef VAR0
+#endif
+
+int main()
+{
+	printf("VAR0 = %d\n", VAR0);
+	return 0;
+}

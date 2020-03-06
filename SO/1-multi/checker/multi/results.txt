@@ -1,3 +1,52 @@
-_test/outputs/test0.out vs _test/outputs/test0.ref:
-00) Test stdin file.........................................failed  [ 0/95]
-00) Test stdin file - memcheck..............................failed  [ 0/95]
+'checkpatch.pl' tool not found on your system. Skipping source check...
+Please download 'checkpatch.pl' from 'https://raw.githubusercontent.com/torvalds/linux/master/scripts/checkpatch.pl' and install it in your $PATH.
+
+00) Sources check...........................................failed  [ 0/95]
+01) Test bad input..........................................passed  [01/95]
+02) Test bad parameters.....................................passed  [01/95]
+03) Test multiple files.....................................passed  [01/95]
+04) Test stdin file.........................................passed  [01/95]
+04) Test stdin file - memcheck..............................passed  [01/95]
+05) Test simple file........................................passed  [01/95]
+05) Test simple file - memcheck.............................passed  [01/95]
+06) Test simple out file....................................passed  [01/95]
+06) Test simple out file - memcheck.........................passed  [01/95]
+_test/outputs/test7.out vs _test/outputs/test7.ref:
+--- _test/outputs/test7.out	2020-03-06 19:33:36.287919100 +0200
++++ _test/outputs/test7.ref	2020-03-06 19:33:35.746233100 +0200
+@@ -1,8 +1,5 @@
+-#define VAR0 1
+-
+ int main() {
+-    int y = VAR0 + 1;
+-    printf("%d\n", VAR0);
+-
++    int y = 1 + 1;
+07) Test simple define......................................failed  [ 0/95]
+07) Test simple define - memcheck...........................passed  [01/95]
+_test/outputs/test8.out vs _test/outputs/test8.ref:
+--- _test/outputs/test8.out	2020-03-06 19:33:36.925606600 +0200
++++ _test/outputs/test8.ref	2020-03-06 19:33:36.383862800 +0200
+@@ -1,6 +1,5 @@
+ int main() {
+-    int y = VAR0 + 1;
+-    printf("%d\n", VAR0);
+-
++    int y = 1 + 1;
++    printf("%d\n", 1);
+     return 0;
+08) Test param define.......................................failed  [ 0/95]
+08) Test param define - memcheck............................passed  [01/95]
+_test/outputs/test9.out vs _test/outputs/test9.ref:
+--- _test/outputs/test9.out	2020-03-06 19:33:37.561238300 +0200
++++ _test/outputs/test9.ref	2020-03-06 19:33:37.035542200 +0200
+@@ -1,10 +1,6 @@
+-#define VAR0 1
+-
+ int main() {
+-    int y = VAR0 + 1;
++    int y = 1 + 1;
++    printf("%d\n", 1);
+     printf("%d\n", VAR0);
+09) Test simple define/undef................................failed  [ 0/95]
+09) Test simple define/undef - memcheck.....................passed  [01/95]

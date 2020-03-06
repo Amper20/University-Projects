@@ -1,1 +1,7 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test32.in <<<<<<
+#include "test32.h"
+
+int main()
+{
+	printf("var = %d\n", var);
+	return 0;
+}

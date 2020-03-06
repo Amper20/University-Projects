@@ -1,1 +1,10 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test19.in <<<<<<
+#define TEST 1
+
+int main() {
+#if TEST
+	printf("True!\n");
+#else
+	printf("False!\n");
+#endif
+	return 0;
+}

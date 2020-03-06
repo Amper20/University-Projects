@@ -1,2 +1,6 @@
->>>>>>>>>>>>>./so-cpp -D VAR0=1 _test/inputs/test8.in <<<<<<
-VAR0=1~~~~~~~~3~~~~~~
+int main() {
+    int y = VAR0 + 1;
+    printf("%d\n", VAR0);
+
+    return 0;
+}

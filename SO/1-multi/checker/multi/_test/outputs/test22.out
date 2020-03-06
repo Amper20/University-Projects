@@ -1,2 +1,12 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test22.in <<<<<<
-~~~~~~~~1~~~~~~
+#define FALSE 0
+#define NOT 0
+#define TRUE 1
+
+int main() {
+#if FALSE
+	printf("False!\n");
+#elif TRUE
+	printf("True!\n");
+#endif
+	return 0;
+}

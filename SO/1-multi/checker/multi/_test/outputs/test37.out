@@ -1,1 +1,7 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test37.in <<<<<<
+#include "test37.h"
+
+int main()
+{
+	printf("var = %d\n", var);
+	return 0;
+}

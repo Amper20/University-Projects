@@ -1,2 +1,6 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test13.in <<<<<<
-~~~~~~~~3~~~~~~
+int main() {
+#if 1
+	printf("Yes!\n");
+#endif
+	return 0;
+}

@@ -1,2 +1,11 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test12.in <<<<<<
-~~~~~~~~3~~~~~~
+#define VAR0 1 \
+        + 2\
+        + 3\
+        + 4
+
+int main() {
+    int y = VAR0 + 1;
+    printf("%d\n", VAR0);
+
+    return 0;
+}

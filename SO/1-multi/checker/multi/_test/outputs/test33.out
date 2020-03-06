@@ -1,1 +1,7 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test33.in <<<<<<
+#include "test33.dir/test33.h"
+
+int main()
+{
+	printf("var = %d\n", var);
+	return 0;
+}

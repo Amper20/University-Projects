@@ -1,0 +1,57 @@
+./so-cpp -X bad param 
+./so-cpp _test/inputs/test3.in test3.out test3.err 
+./so-cpp 
+./so-cpp _test/inputs/test5.in 
+./so-cpp _test/inputs/test6.in _test/outputs/test6.out 
+./so-cpp _test/inputs/test7.in 
+./so-cpp -D VAR0=1 _test/inputs/test8.in 
+./so-cpp _test/inputs/test9.in 
+./so-cpp _test/inputs/test10.in 
+./so-cpp _test/inputs/test11.in 
+./so-cpp _test/inputs/test12.in 
+./so-cpp _test/inputs/test13.in 
+./so-cpp _test/inputs/test14.in 
+./so-cpp _test/inputs/test15.in 
+./so-cpp _test/inputs/test16.in 
+./so-cpp _test/inputs/test17.in 
+./so-cpp _test/inputs/test18.in 
+./so-cpp _test/inputs/test19.in 
+./so-cpp -D TEST=0 _test/inputs/test20.in 
+./so-cpp _test/inputs/test21.in 
+./so-cpp _test/inputs/test22.in 
+./so-cpp _test/inputs/test23.in 
+./so-cpp _test/inputs/test24.in 
+./so-cpp _test/inputs/test25.in 
+./so-cpp _test/inputs/test26.in 
+./so-cpp -DDEBUG _test/inputs/test27.in 
+./so-cpp _test/inputs/test28.in 
+./so-cpp -D VAR0 _test/inputs/test29.in 
+./so-cpp _test/inputs/test30.in 
+./so-cpp -D VAR0=0 -D VAR1=1 _test/inputs/test31.in 
+./so-cpp _test/inputs/test32.in 
+./so-cpp _test/inputs/test33.in 
+./so-cpp -I _test/inputs/test34.dir _test/inputs/test34.in 
+./so-cpp -I _test/inputs/test35.dir -I _test/inputs/test35.dir/test35.subdir _test/inputs/test35.in 
+./so-cpp -I _test/inputs/test36.dir -I _test/inputs/test36.dir/test36.subdir _test/inputs/test36.in 
+./so-cpp _test/inputs/test37.in 
+./so-cpp _test/inputs/test7.in 
+./so-cpp _test/inputs/test5.in 
+./so-cpp -X bad param 
+./so-cpp _test/inputs/test3.in test3.out test3.err 
+./so-cpp 
+./so-cpp _test/inputs/test5.in 
+./so-cpp _test/inputs/test6.in _test/outputs/test6.out 
+./so-cpp _test/inputs/test7.in 
+./so-cpp _test/inputs/test5.in 
+./so-cpp _test/inputs/test5.in 
+./so-cpp _test/inputs/test5.in 
+./so-cpp _test/inputs/test5.in 
+./so-cpp -X bad param 
+./so-cpp _test/inputs/test3.in test3.out test3.err 
+./so-cpp 
+./so-cpp _test/inputs/test5.in 
+./so-cpp _test/inputs/test6.in _test/outputs/test6.out 
+./so-cpp _test/inputs/test7.in 
+./so-cpp -D VAR0=1 _test/inputs/test8.in 
+./so-cpp _test/inputs/test9.in 
+./so-cpp _test/inputs/test10.in 

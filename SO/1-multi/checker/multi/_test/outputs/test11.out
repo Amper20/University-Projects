@@ -1,2 +1,10 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test11.in <<<<<<
-~~~~~~~~3~~~~~~
+#define ABC 10
+#define ABCD 2
+#define BCD ABC + 15
+
+int main() {
+    printf("%d\n", ABC);
+    int x = BCD + 20;
+
+    return 0;
+}

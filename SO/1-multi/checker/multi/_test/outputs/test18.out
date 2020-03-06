@@ -1,1 +1,8 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test18.in <<<<<<
+int main() {
+#if 0
+	printf("True!\n");
+#else
+	printf("False!\n");
+#endif
+	return 0;
+}

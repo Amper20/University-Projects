@@ -1,1 +1,6 @@
->>>>>>>>>>>>>./so-cpp _test/inputs/test14.in <<<<<<
+int main() {
+#if 0
+	printf("No!\n");
+#endif
+	return 0;
+}
