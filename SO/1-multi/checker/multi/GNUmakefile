@@ -1,5 +1,5 @@
 build: main.o
-	gcc -g -o so-cpp main.o
+	gcc -g -o so-cpp so-cpp.o
 
-main.o : main.c
-	gcc -g -c main.c
+main.o : so-cpp.c
+	gcc -g -c so-cpp.c

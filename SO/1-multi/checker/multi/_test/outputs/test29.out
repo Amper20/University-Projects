@@ -1,6 +1,3 @@
-#ifdef VAR0
-#undef VAR0
-#endif
 
 int main()
 {

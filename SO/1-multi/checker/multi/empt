@@ -1,0 +1,102 @@
+valgrind --leak-check=full --show-reachable=yes --vex-iropt-register-updates=allregs-at-mem-access --show-leak-kinds=all --error-exitcode=1 ./so-cpp -D VAR0=1 _test/inputs/test8.in
+
+
+ int main() {
+-#if 1
+        printf("Yes!\n");
+-#endif
+        return 0;
+ }
+
+ int main() {
+-#if 0
+-       printf("No!\n");
+-#endif
+        return 0;
+ }
+
+ int main() {
+-#if 1
+        printf("Yes!\n");
+-#endif
+        return 0;
+ }
+
+ int main() {
+-#if 0
+-       printf("Yes!\n");
+-#endif
+        return 0
+ }
+
+ int main() {
+-#if 1
+        printf("True!\n");
+-#else
+-       printf("False!\n");
+-#endif
+        return 0;
+
+ int main() {
+-#if 0
+-       printf("True!\n");
+-#else
+        printf("False!\n");
+-#endif
+        return 0;
+
+ int main() {
+-#if 1
+        printf("True!\n");
+-#else
+-       printf("False!\n");
+-#endif
+        return 0;
+
+ int main() {
+-#if 0
+-       printf("True!\n");
+-#else
+        printf("False!\n");
+-#endif
+        return 0;
+
+ int main() {
+-#if 0
+-       printf("False!\n");
+-#elif 0
+-       printf("True!\n");
+-#endif
+        return 0;
+
+ int main() {
+-#if 0
+-       printf("False!\n");
+-#elif 1
+        printf("True!\n");
+-#endif
+        return 0;
+
+ int main() {
+-#if 0
+-       printf("False!\n");
+-#elif 1
+        printf("True!\n");
+-#else
+-       printf("Bad!\n");
+
+ int main() {
+-#if 0
+-       printf("False!\n");
+-#elif 0
+-       printf("True!\n");
+-#else
+        printf("Good!\n");
+
+ int main() {
+-#if 0
+-    printf("No\n");
+-#elif 0
+-    printf("Maybe\n");
+-#elif 1
+     printf("ABC\n");

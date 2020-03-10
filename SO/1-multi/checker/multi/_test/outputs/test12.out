@@ -1,11 +1,6 @@
-#define VAR0 1 \
-        + 2\
-        + 3\
-        + 4
-
 int main() {
-    int y = VAR0 + 1;
-    printf("%d\n", VAR0);
+    int y = 1 + 2 + 3 + 4 + 1;
+    printf("%d\n", 1 + 2 + 3 + 4);
 
     return 0;
 }

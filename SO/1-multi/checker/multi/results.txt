@@ -1,6 +1,19 @@
-'checkpatch.pl' tool not found on your system. Skipping source check...
-Please download 'checkpatch.pl' from 'https://raw.githubusercontent.com/torvalds/linux/master/scripts/checkpatch.pl' and install it in your $PATH.
-
+No structs that should be const will be found - file '/mnt/c/Users/Master/Desktop/InterestingThings/newGit/University-Projects/SO/1-multi/checker/multi/checkpl/const_structs.checkpatch': No such file or directory
+./so-cpp.c:37: ERROR:CODE_INDENT: code indent should use tabs where possible
+./main1.c:1: ERROR:DOS_LINE_ENDINGS: DOS line endings
+./so-cpp.c:394: ERROR:ELSE_AFTER_BRACE: else should follow close brace '}'
+./main1.c:15: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./main1.c:70: WARNING:LINE_SPACING: Missing a blank line after declarations
+./so-cpp.c:58: WARNING:LONG_LINE: line over 80 characters
+./so-cpp.c:497: WARNING:MISSING_EOF_NEWLINE: adding a line without newline at end of file
+./main1.c:17: ERROR:OPEN_BRACE: open brace '{' following struct go on the same line
+./main1.c:15: ERROR:POINTER_LOCATION: "foo * bar" should be "foo *bar"
+./main1.c:28: WARNING:SPACING: space prohibited between function name and open parenthesis '('
+./main1.c:33: WARNING:SUSPECT_CODE_INDENT: suspect code indent for conditional statements (3, 7)
+./main1.c:73: WARNING:TABSTOP: Statements should start on a tabstop
+./main1.c:471: ERROR:TRAILING_STATEMENTS: trailing statements should be on next line
+./main1.c:416: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./main1.c:215: WARNING:USE_NEGATIVE_ERRNO: return of an errno should typically be negative (ie: return -ERR)
 00) Sources check...........................................failed  [ 0/95]
 01) Test bad input..........................................passed  [01/95]
 02) Test bad parameters.....................................passed  [01/95]
@@ -9,44 +22,6 @@ Please download 'checkpatch.pl' from 'https://raw.githubusercontent.com/torvalds
 04) Test stdin file - memcheck..............................passed  [01/95]
 05) Test simple file........................................passed  [01/95]
 05) Test simple file - memcheck.............................passed  [01/95]
+file passed as output
 06) Test simple out file....................................passed  [01/95]
 06) Test simple out file - memcheck.........................passed  [01/95]
-_test/outputs/test7.out vs _test/outputs/test7.ref:
---- _test/outputs/test7.out	2020-03-06 19:33:36.287919100 +0200
-+++ _test/outputs/test7.ref	2020-03-06 19:33:35.746233100 +0200
-@@ -1,8 +1,5 @@
--#define VAR0 1
--
- int main() {
--    int y = VAR0 + 1;
--    printf("%d\n", VAR0);
--
-+    int y = 1 + 1;
-07) Test simple define......................................failed  [ 0/95]
-07) Test simple define - memcheck...........................passed  [01/95]
-_test/outputs/test8.out vs _test/outputs/test8.ref:
---- _test/outputs/test8.out	2020-03-06 19:33:36.925606600 +0200
-+++ _test/outputs/test8.ref	2020-03-06 19:33:36.383862800 +0200
-@@ -1,6 +1,5 @@
- int main() {
--    int y = VAR0 + 1;
--    printf("%d\n", VAR0);
--
-+    int y = 1 + 1;
-+    printf("%d\n", 1);
-     return 0;
-08) Test param define.......................................failed  [ 0/95]
-08) Test param define - memcheck............................passed  [01/95]
-_test/outputs/test9.out vs _test/outputs/test9.ref:
---- _test/outputs/test9.out	2020-03-06 19:33:37.561238300 +0200
-+++ _test/outputs/test9.ref	2020-03-06 19:33:37.035542200 +0200
-@@ -1,10 +1,6 @@
--#define VAR0 1
--
- int main() {
--    int y = VAR0 + 1;
-+    int y = 1 + 1;
-+    printf("%d\n", 1);
-     printf("%d\n", VAR0);
-09) Test simple define/undef................................failed  [ 0/95]
-09) Test simple define/undef - memcheck.....................passed  [01/95]

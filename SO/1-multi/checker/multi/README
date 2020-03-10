@@ -1,5 +1,31 @@
+- Inputul programului - 
+    Este citit in intregime si salvat int-un vector de vectori alocat dinamic, in caz de necesitate vector-ul este realocat
 
-Pentru verificarea temei copiati executabilul tema1 in
-acelasi director cu scriptul de testare (run_all.sh) si apelati:
+- Map-ul - 
+    Este implementat folosind un vector care este realocat in caz de necesitate. Perechea key, value este salvata intr-un struct
+    Operatia de set este implementata prin adaugarea perechii key,value la finalul vectorului. Operatia de get este realizata prin 
+    parcurgerea vectorului si compararea fiecarei key din map cu key(cautata); 
 
-make -f Makefile.checker
+- Modul de implementare-
+    Destul de ineficient si rudimentar parsam fisierul linie cu linie si modificam inputul in cazurile necesare
+
+- Corner cases -
+    Testele de input nu specifica cazuri in care ifdef ar contine linii multiple in corpul sau precum:
+        #ifdef 
+            some code;
+            some more code;
+        #endif
+    Pentru a acoperi aceste cazuri vom afisa toate liniile pana cand nu vom gasi linia cu #endif folosind un loop.
+
+- % Implementare -
+    Nu am implementat partea cu #include “HEADER”, stiu ca nu e un motiv foarte bun, 
+    dar am avut un deadline major la munca si tema nu mi-a sa parut foarte interesanta, cam asa. 
+
+- Lucruri interesante descoperite pe parcurs -
+    Am mai invatat ceva pointer handling si string parsing in C.
+
+- Git -
+    Folosesc un repo pe git de prin anul 1 pentru temele din facultate, deci nu am vazut utilitate creeari unui nou cont pe gitlab. 
+
+- Tema Feedback -
+    Not great, somewhat terrible,  7 studenti tristi / 10 studenti flamanzi. 
