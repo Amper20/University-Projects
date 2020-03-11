@@ -6,13 +6,12 @@
 #define FILE_I 3
 #define STDIN_AS_I 2
 #define ERR 1
-#define LINE_SIZE 100
+#define LINE_SIZE 200
 #define LOG 1
-#define INITIAL_ARR_SIZE 50
+#define INITIAL_ARR_SIZE 1000
 #define TYPE_D 1
 #define TYPE_I 2
 #define TYPE_DEL 3
-#define CLR_SPAPCES 2
 
 struct pair
 {
@@ -28,28 +27,22 @@ struct mp
 };
 
 /* initialize map structure */
-int init_mp(struct mp *map)
+void init_mp(struct mp *map)
 {
     int i;
     map->size = INITIAL_ARR_SIZE;
     map->cnt = 0;
     map->lst = (struct pair*) malloc(map->size * sizeof(struct pair));
-    if(map->lst == NULL)
-        return ERR;
     for(i = 0; i < map->size; i++){
         map->lst[i].key = NULL;
         map->lst[i].val = NULL;
         map->lst[i].key = (char *)malloc(sizeof(char) * LINE_SIZE);
         map->lst[i].val = (char *)malloc(sizeof(char) * LINE_SIZE);
-        if(map->lst[i].key == NULL || map->lst[i].val == NULL)
-            return ERR;
     }
-    return 0;
 }
 
 /* check if key is present in map structure */
-int get(struct mp *map, char *key, int type)
-{
+int get(struct mp *map, char *key, int type){
     int i;
     for(i = 0 ; i < map->cnt; i++)
         if(strcmp(map->lst[i].key,key) == 0 && map->lst[i].type == type)
@@ -58,9 +51,9 @@ int get(struct mp *map, char *key, int type)
 }
 
 /* set a corelation between key and value in map structure */
-void set(struct mp *map, char *key, char *value, int type)
-{
+void set(struct mp *map, char *key, char *value, int type){
     int i;
+
     if(map->cnt + 1 >= map->size){
         map->lst = (struct pair *)realloc(map->lst, (map->size * 2) * sizeof(struct pair));
         
@@ -94,21 +87,18 @@ struct matrx{
 };
 
 /* initialize matrix structure that keeps lines */
-int init_mtrx(struct matrx *input)
-{   
-    int i;    
+void init_mtrx(struct matrx *input){
+    
+    int i;
+    
     input->size = INITIAL_ARR_SIZE;
     input->cnt = 0;
     input->mtrx = (char **)malloc(input->size * sizeof(char *));     
     input->prnt = (int *)malloc(input->size * sizeof(int));
-    if(input->mtrx == NULL || input->prnt == NULL)
-        return ERR;
     for(i = 0; i < input->size; i++){
         input->mtrx[i] = NULL;
         input->prnt[i] = 1;
         input->mtrx[i] = (char*)malloc(LINE_SIZE * sizeof(char));
-        if(input->mtrx[i] == NULL)
-            return ERR;
     }
 }
 
@@ -132,7 +122,7 @@ void add_line(struct matrx *input, char* buff){
 void parseD(struct mp *map, char*argv){
 
     char *buff_key, *buff_value;
-    unsigned int j, cnt;
+    int j, cnt;
     size_t n;
     j = 0;
     cnt = 0;
@@ -162,7 +152,7 @@ void parseD(struct mp *map, char*argv){
 /* Parses parameters with an I as argument*/
 void parseI(struct mp *map, char*argv){
     char *buff_value;
-    unsigned int j;
+    int j;
     size_t n = strlen(argv);
     buff_value = (char*)malloc((n + 1) * sizeof(char));
     for(j = 0; j < n; j++)
@@ -380,7 +370,7 @@ void solve_if(struct matrx *input, int *i, char *poz)
 
 void solve_ifdef(struct mp *map, struct matrx *input, int *i, char *poz)
 { 
-    unsigned int j = 0;
+    int j = 0;
     char buff[LINE_SIZE];
     poz = strstr(input->mtrx[*i], "#ifdef ");
     if(poz == NULL){
@@ -413,28 +403,16 @@ void solve_ifdef(struct mp *map, struct matrx *input, int *i, char *poz)
     }
 }
 
-/* solve include statement*/
-int solve_include(struct matrx *input){
-    char *poz = NULL;
-    int i;
-    
+int solve_include(struct mp *map, struct matrx *input){
+    char* poz;
+    int i, j;
     for(i = 0; i < input->cnt; i++){
         poz = strstr(input->mtrx[i], "#include");   
         if(poz != NULL){
-            // poz += strlen("#include \"");
-            // for(j = 0; j < strlen(poz); j++)
-            //     poz[j] = (poz[j] == '"' ? '\0' : poz[j]);
-            // // memcpy(h_fl_path, in_fl_path, strlen(in_fl_path));
-            // memcpy(strstr(h_fl_path, "inputs/test") + strlen("inputs/"), poz, strlen(poz));    
-            // file_in = fopen(h_fl_path, "r");
-            // if (file_in == NULL)
-            //     return ERR;
-            // fgets(buff, sizeof(buff), file_in);
-            // memcpy(input->mtrx[i], buff, sizeof(char)*LINE_SIZE);   
-            // fclose(file_in);
-            memcpy(input->mtrx[i], "int var;", strlen("int var;"));   
-            input->mtrx[i][strlen("int var;")] = '\0';
-            return CLR_SPAPCES;
+            poz += strlen("#include \"");
+            for(j = 0; j < strlen(poz); j++)
+                poz[j] = (poz[j] == '"' ? '\0' : poz[j]);
+            printf("--->>>%s\n", poz);
         }
     }
     return 0;
@@ -509,42 +487,27 @@ int main (int argc, char *argv[])
     struct matrx input;
     int ret;
 
-    ret = init_mp(&map);
-    if (ret == ERR){
-        free_mem(in_file_path, out_file_path, &map, &input);
-        return 1;
-    }
-
-    ret = init_mtrx(&input);
-    if (ret == ERR){
-        free_mem(in_file_path, out_file_path, &map, &input);
-        return 1;
-    }
-
+    init_mp(&map);
+    init_mtrx(&input);
+    
     ret = parse_argv(argc, argv, &in_file_path, &out_file_path, &map);
-    if (ret == ERR){
-        free_mem(in_file_path, out_file_path, &map, &input);
+    if (ret == ERR)
         return 1;
-    }
+
     ret = get_input(ret, &input, in_file_path);
-    if (ret == ERR){
-        free_mem(in_file_path, out_file_path, &map, &input);
+    if (ret == ERR)
         return 1;
-    }
         
-    ret = solve_include(&input);
-    if (ret == ERR){
-        free_mem(in_file_path, out_file_path, &map, &input);
+    ret = solve_include(&map, &input);
+    if (ret == ERR)
         return 1;
-    }
 
     replace_define(&map, &input);
     
     ret = print_out(ret, &input, out_file_path);
-    if (ret == ERR){
-        free_mem(in_file_path, out_file_path, &map, &input);
+    if (ret == ERR)
         return 1;
-    }
+
     free_mem(in_file_path, out_file_path, &map, &input);
 
     return 0;

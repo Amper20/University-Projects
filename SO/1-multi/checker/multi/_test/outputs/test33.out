@@ -1,5 +1,4 @@
-#include "test33.dir/test33.h"
-
+int var;
 int main()
 {
 	printf("var = %d\n", var);

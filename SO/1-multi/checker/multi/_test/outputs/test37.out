@@ -1,5 +1,4 @@
-#include "test37.h"
-
+int var;
 int main()
 {
 	printf("var = %d\n", var);

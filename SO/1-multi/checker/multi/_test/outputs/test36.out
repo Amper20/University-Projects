@@ -1,0 +1,7 @@
+int var;
+int main()
+{
+	printf("VAR = %d\n", VAR);
+	return 0;
+}
+
